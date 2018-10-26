@@ -19,6 +19,7 @@ public class Player_Basic_Move : MonoBehaviour
     public string ground;
     public float angle;
     public float editAngle = -15;
+    public float distance;
 
     public Vector3 newVector;
     public Vector2 Cast;
@@ -39,6 +40,7 @@ public class Player_Basic_Move : MonoBehaviour
         jumpForce = 5;
         walkSpeed = 4f;
         runSpeedMultiplier = 2f;
+        distance = 1.7f;
     }
 
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
@@ -64,8 +66,7 @@ public class Player_Basic_Move : MonoBehaviour
     {
         Vector2 position = transform.position;
         Vector2 direction = new Vector2((Cast.y-1), (-Cast.x + varY));
-        Vector3 vec= new Vector3((Cast.y - 1), (-Cast.x + varY), 0);
-        float distance = 0.5f;
+        Vector3 vec = new Vector3((Cast.y - 1), (-Cast.x + varY), 0);
         Debug.DrawRay(transform.position, vec, Color.red);
 
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
