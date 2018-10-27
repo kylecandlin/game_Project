@@ -9,78 +9,51 @@ public class Player_Basic_Move : MonoBehaviour
     // Foreign Scripts
     public Player_Stats Player_Stats;
     public float Player_Stats_CurrentStamina;
-
-    public float moveSpeed;
-    public float walkSpeed;
-    public float runSpeedMultiplier;
-    public float jumpForce;
+       
+    public float walkSpeed; // The default value for walking
+    public float runSpeedMultiplier; // The value used to multiply walk speed by 
+    public float moveSpeed; // The calculated output for speed of movement
+    public float jumpForce; // The Force of the jump
     float y;
-    public bool canDoubleJump;
-    public string ground;
-    public float angle;
-    public float editAngle = -15;
-    public float distance;
+    public bool canDoubleJump; // Boolean defining whether the player is allowed a second jump 
+    public string grounded; // String value to identify when the player is grounded 
+    private float angle; // The Angle of the slope beneath the player
 
-    public Vector3 newVector;
-    public Vector2 Cast;
-    public float varX = 0;
-    public float varY = 0;
+    public LayerMask groundLayer; // Ground interaction layer for player
 
-    public LayerMask groundLayer;
+    Rigidbody2D rb2d; // Players 2D Rigid Body
+    Camera MainCamera;
 
-    private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
-  
-    // Use this for initialization
     void Start()
-    {
-        
-        //Get and store a reference to the Rigidbody2D component so that we can access it.
-        rb2d = GetComponent<Rigidbody2D>();
-        moveSpeed = walkSpeed;
-        jumpForce = 5;
+    { 
+        // Assign Initial values and parameters        
+        rb2d = GetComponent<Rigidbody2D>(); // Assign 2D Rigid Body
+        MainCamera = Camera.main;
+        MainCamera.enabled = true; 
+        MainCamera.orthographicSize = 7;
         walkSpeed = 4f;
         runSpeedMultiplier = 2f;
-        distance = 1.7f;
+        moveSpeed = walkSpeed;
+        jumpForce = 5;           
     }
 
-    //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void Update()
-    {
-        Slope();
+    {        
         // Update Foreign Scripts and Variables
         Player_Stats = this.GetComponent<Player_Stats>();
         Player_Stats_CurrentStamina = Player_Stats.currentStamina;
-        if (IsGrounded() == false)
-        {
-            ground = "Not Grounded";
-        }
-        else {
-            ground = "Grounded";
-        }
-        Controls();
-        Player_Stats.Regeneration(2, 10, 0, true);
+
+        Player_Stats.Regeneration(2, 10, 0, true); // Base regeration
+
+        SlopeAngle();
         Walk();
         Jump();
-    }
-    bool IsGrounded()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = new Vector2((Cast.y-1), (-Cast.x + varY));
-        Vector3 vec = new Vector3((Cast.y - 1), (-Cast.x + varY), 0);
-        Debug.DrawRay(transform.position, vec, Color.red);
+        OtherControls();           
+    }   
 
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        if (hit.collider != null)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
+    // Applies Walk motions
     void Walk()
     {
-
         if (Input.GetKey(KeyCode.LeftShift) && Player_Stats_CurrentStamina > 0f)
         {
             Player_Stats.AlterStats(0, -1, 0);
@@ -100,65 +73,62 @@ public class Player_Basic_Move : MonoBehaviour
         rb2d.AddForce(movement_y, ForceMode2D.Impulse);
     }
 
+    // Applies Jump motions
     void Jump() {
-        y = 0;
+        y = 0; // Resets y component
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (IsGrounded())
+            if (IsGrounded()) // First Jump
             {
-                y += jumpForce;
-                canDoubleJump = true;
-                ground = "Grounded";
-                
+                rb2d.velocity = new Vector2(0, 0); // Resets players x velocity
+                y += jumpForce; // Applies Jump force to the y component 
+                canDoubleJump = true;                
             }
-            
-            else
-            {
-                if (canDoubleJump)
-                {
-                    canDoubleJump = false;
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
-                    y += jumpForce;
 
-                }
+            else if (canDoubleJump) // Airbourne Jump
+            {                         
+                canDoubleJump = false;
+                rb2d.velocity = new Vector2(0, 0);
+                y += jumpForce;                
             }
         }
     }
 
-    void Controls()
+    // Identifies if the player is Grounded
+    bool IsGrounded()
     {
+        float distance = 1.7f; // Length of Raycast
+        Vector2 position = transform.position; // Origin of Raycast
+        Vector2 direction = new Vector2((0), (-1)); // Direction of Raycast
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer); // Cast Raycast
+        if (hit.collider != null) // If hit is detected from Raycast
+        {
+            grounded = "Grounded";
+            return true; // Player on ground
+        }
+        grounded = "Not Grounded";
+        return false; // Player not on ground
+    }
+
+    // Calculates the angle of the slope beneath the player
+    float SlopeAngle()
+    {
+        RaycastHit2D[] hits = new RaycastHit2D[2]; // Stores Raycast hits
+        int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits); // Cast Raycast downwards
+        if (h > 1) // Detect when more than one Raycast hits
+        {
+            angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y) * Mathf.Rad2Deg); // Calculate angle            
+        }
+        return angle; // Return Angle float value
+    }
+
+    // Other player controls
+    void OtherControls()
+    {
+        // List of other Controls
         if (Input.GetKeyDown(KeyCode.X))
         {
             Player_Stats.AlterStats(-10, 0, 0);
         }
-    }
-
-    void Slope() {
-        RaycastHit2D[] hits = new RaycastHit2D[2];
-        int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits); //cast downwards
-        if (h > 1)
-        { //if we hit something do stuff
-            Debug.Log(hits[1].normal);
-            Cast = new Vector2(hits[1].normal.y, hits[1].normal.y);
-            angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y) * Mathf.Rad2Deg); //get angle
-            Debug.Log(angle);
-
-            if (angle > 30)
-            {
-                //DoSomething(); //change your animation
-            }
-
-        }
-
-
-        //Vector3 noAngle = new Vector3(0,0,0);
-        //Quaternion spreadAngle = Quaternion.AngleAxis(editAngle, new Vector3(0, 1, 0));
-        //Vector3 newVector = spreadAngle * noAngle;
-
-      
-
-
-
-
     }
 }
