@@ -8,25 +8,46 @@ public class Inventory : MonoBehaviour {
     public GameObject Panels;
     public GameObject InventoryTab;
     public GameObject PlayerTab;
+    public GameObject SettingsTab;
     public GameObject InventoryPanel;
     public GameObject PlayerPanel;
+    public GameObject SettingsPanel;
     public GameObject InventoryBackground;
+    public GameObject InventorySlotPrefab;
+    public GameObject prefab;
     private Camera cam;
     private bool displaying;
+    private RectTransform rect;
+    public float x;
+    public float y;
+
+    public int inventorySize;
+    private int maxCol;
+    private int maxRow;
 
 	// Use this for initialization
 	void Start () {
+        y = -30;
+        x = 30;
+        maxCol = 10;
+        maxRow = 3;
+        inventorySize = 30;
         cam = Camera.main;
         Tabs.SetActive(false);
         Panels.SetActive(false);
         InventoryPanel.SetActive(true);
+        SettingsPanel.SetActive(false);
         PlayerPanel.SetActive(false);
         InventoryBackground.SetActive(false);
+        rect = InventoryBackground.GetComponent<RectTransform>();
+        PopulateInventorySlots();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        rect.sizeDelta = new Vector2(Screen.width,Screen.height);
         InventoryToggle();
+        
 	}
 
     // Shows the inventory interface
@@ -44,12 +65,32 @@ public class Inventory : MonoBehaviour {
             case 0:
                 InventoryPanel.SetActive(true);
                 PlayerPanel.SetActive(false);
+                SettingsPanel.SetActive(false);
                 break;
             case 1:
                 InventoryPanel.SetActive(false);
                 PlayerPanel.SetActive(true);
+                SettingsPanel.SetActive(false);
+                break;
+            case 2:
+                InventoryPanel.SetActive(false);
+                PlayerPanel.SetActive(false);
+                SettingsPanel.SetActive(true);
                 break;
         }
 
+    }
+
+    public void PopulateInventorySlots() {
+        for (int i = 0; i < maxCol; i++) {
+            for (int j = 0; j < maxRow; j++) {
+                
+                prefab = Instantiate(InventorySlotPrefab, new Vector3((i+1) * x * 2,(j+1) * 2* y,0), Quaternion.identity) as GameObject;
+                prefab.transform.SetParent (InventoryPanel.transform, false);
+            }
+        }
+    }
+    public void Quit() {
+        Application.Quit();
     }
 }
