@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class Player_Stats : MonoBehaviour
 {
     // Variables
-    public float currentHealth; public float maxHealth; public Slider healthBar; // Health attributes  
-    public float currentMana; public float maxMana; public Slider manaBar;// Mana attributes 
-    public float currentStamina; public float maxStamina; public Slider staminaBar;// Stamina attributes  
+    public float currentHealth; public float maxHealth; public Slider healthBar; public Slider healthBarInventory; // Health attributes   
+    public float currentMana; public float maxMana; public Slider manaBar; public Slider manaBarInventory;// Mana attributes 
+    public float currentStamina; public float maxStamina; public Slider staminaBar; public Slider staminaBarInventory;// Stamina attributes  
     public float regenTime; public float tempTime; // Regeneration time 
 
     // Scripts and foreign variables
@@ -52,9 +52,9 @@ public class Player_Stats : MonoBehaviour
 
     void DisplayStats()
     {
-        healthBar.value = currentHealth / maxHealth;
-        manaBar.value = currentMana / maxMana;
-        staminaBar.value = currentStamina / maxStamina;
+        healthBar.value = healthBarInventory.value = currentHealth / maxHealth;
+        manaBar.value = manaBarInventory.value = currentMana / maxMana;
+        staminaBar.value = staminaBarInventory.value = currentStamina / maxStamina;
     }
 
     public void AlterStats(float healthChange, float staminaChange, float manaChange)

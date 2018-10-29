@@ -44,3 +44,6 @@ TagManager:
   - name: Player
     uniqueID: 2420582665
     locked: 0
+  - name: Inventory
+    uniqueID: 3113075429
+    locked: 0

@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < maxCol; i++) {
             for (int j = 0; j < maxRow; j++) {
                 
-                prefab = Instantiate(InventorySlotPrefab, new Vector3((i+1) * x * 2,(j+1) * 2* y,0), Quaternion.identity) as GameObject;
+                prefab = Instantiate(InventorySlotPrefab, new Vector3((i * x * 2)+30,(j+1) * 2* y,0), Quaternion.identity) as GameObject;
                 prefab.transform.SetParent (InventoryPanel.transform, false);
             }
         }
