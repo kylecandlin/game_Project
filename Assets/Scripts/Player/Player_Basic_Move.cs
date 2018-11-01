@@ -9,7 +9,7 @@ public class Player_Basic_Move : MonoBehaviour
     // Foreign Scripts
     public Player_Stats Player_Stats;
     public float Player_Stats_CurrentStamina;
-       
+
     public float walkSpeed; // The default value for walking
     public float runSpeedMultiplier; // The value used to multiply walk speed by 
     public float moveSpeed; // The calculated output for speed of movement
@@ -23,33 +23,36 @@ public class Player_Basic_Move : MonoBehaviour
 
     Rigidbody2D rb2d; // Players 2D Rigid Body
     Camera MainCamera;
+    [Range(0f, 30f)]
+    public float cameraZoom;
 
     void Start()
-    { 
-        // Assign Initial values and parameters        
+    {
+        // Assign Initial values and parameters  
         rb2d = GetComponent<Rigidbody2D>(); // Assign 2D Rigid Body
         MainCamera = Camera.main;
-        MainCamera.enabled = true; 
-        MainCamera.orthographicSize = 7;
+        MainCamera.enabled = true;
+        cameraZoom = 7;
         walkSpeed = 4f;
         runSpeedMultiplier = 2f;
         moveSpeed = walkSpeed;
-        jumpForce = 5;           
+        jumpForce = 5;
     }
 
     void Update()
-    {        
+    {
         // Update Foreign Scripts and Variables
         Player_Stats = this.GetComponent<Player_Stats>();
         Player_Stats_CurrentStamina = Player_Stats.currentStamina;
 
-        Player_Stats.Regeneration(2, 10, 0, true); // Base regeration
+        MainCamera.orthographicSize = cameraZoom;
+        Player_Stats.Regeneration(0.2f, 1, 1, true); // Base regeration
 
         SlopeAngle();
         Walk();
         Jump();
-        OtherControls();           
-    }   
+        OtherControls();
+    }
 
     // Applies Walk motions
     void Walk()
@@ -82,14 +85,14 @@ public class Player_Basic_Move : MonoBehaviour
             {
                 rb2d.velocity = new Vector2(0, 0); // Resets players x velocity
                 y += jumpForce; // Applies Jump force to the y component 
-                canDoubleJump = true;                
+                canDoubleJump = true;
             }
 
             else if (canDoubleJump) // Airbourne Jump
-            {                         
+            {
                 canDoubleJump = false;
                 rb2d.velocity = new Vector2(0, 0);
-                y += jumpForce;                
+                y += jumpForce;
             }
         }
     }
@@ -128,7 +131,9 @@ public class Player_Basic_Move : MonoBehaviour
         // List of other Controls
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Player_Stats.AlterStats(-10, 0, 0);
+            Player_Stats.AlterStats(-10, 0, -10);
         }
     }
+
+    
 }

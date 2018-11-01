@@ -18,7 +18,7 @@ public class Player_Stats : MonoBehaviour
     //Initialization
     void Start()
     {
-        regenTime = 1; // time to regenerate stats (one increment)
+        regenTime = 0.05f; // time to regenerate stats (one increment)
         tempTime = regenTime;
         maxHealth = 80;
         maxMana = 80;

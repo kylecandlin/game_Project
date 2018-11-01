@@ -90,7 +90,9 @@ public class Inventory : MonoBehaviour {
             }
         }
     }
+
     public void Quit() {
         Application.Quit();
     }
+
 }
