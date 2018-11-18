@@ -1611,6 +1611,14 @@ MonoBehaviour:
   staminaBarInventory: {fileID: 2055581073}
   regenTime: 0
   tempTime: 0
+  inputUsername: 
+  inputPassword: 
+  inputHealth: 0
+  inputStamina: 0
+  inputMana: 0
+  inputMaxHealth: 0
+  inputMaxStamina: 0
+  inputMaxMana: 0
   controlScript: {fileID: 0}
 --- !u!114 &880832712
 MonoBehaviour:
@@ -2777,12 +2785,12 @@ Prefab:
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa07767a37bb4154f88e5843cefa4c31, type: 2}
@@ -3456,12 +3464,12 @@ Prefab:
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1891422639796718, guid: aa07767a37bb4154f88e5843cefa4c31, type: 2}
       propertyPath: m_Name
@@ -3983,12 +3991,12 @@ Prefab:
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224089902139328728, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa07767a37bb4154f88e5843cefa4c31, type: 2}
