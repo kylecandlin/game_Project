@@ -10,6 +10,8 @@ public class Player_Basic_Move : MonoBehaviour
     public Player_Stats Player_Stats;
     public float Player_Stats_CurrentStamina;
 
+    public GameObject Gold;
+
     public float walkSpeed; // The default value for walking
     public float runSpeedMultiplier; // The value used to multiply walk speed by 
     public float moveSpeed; // The calculated output for speed of movement
@@ -133,7 +135,10 @@ public class Player_Basic_Move : MonoBehaviour
         {
             Player_Stats.AlterStats(-10, 0, -10);
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Instantiate(Gold, new Vector3(0, 0, 0), Quaternion.identity);
+        }
     }
 
-    
 }

@@ -21,6 +21,9 @@ public class Inventory : MonoBehaviour {
     public float x;
     public float y;
 
+    public int totalGold;
+    public Text textGold;
+
     public int inventorySize;
     private int maxCol;
     private int maxRow;
@@ -41,13 +44,14 @@ public class Inventory : MonoBehaviour {
         InventoryBackground.SetActive(false);
         rect = InventoryBackground.GetComponent<RectTransform>();
         PopulateInventorySlots();
+        totalGold = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        textGold.text = "Gold: " + totalGold.ToString();
         rect.sizeDelta = new Vector2(Screen.width,Screen.height);
-        InventoryToggle();
-        
+        InventoryToggle();        
 	}
 
     // Shows the inventory interface
