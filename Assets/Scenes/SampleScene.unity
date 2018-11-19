@@ -2039,14 +2039,6 @@ MonoBehaviour:
   staminaBarInventory: {fileID: 2055581073}
   regenTime: 0
   tempTime: 0
-  inputUsername: Kyle
-  inputPassword: 34543
-  inputHealth: 1
-  inputStamina: 62
-  inputMana: 97
-  inputMaxHealth: 100
-  inputMaxStamina: 100
-  inputMaxMana: 100
   controlScript: {fileID: 0}
 --- !u!114 &880832712
 MonoBehaviour:
@@ -3319,7 +3311,6 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
-<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 224348555601052842, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
@@ -3330,8 +3321,6 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 1
-=======
->>>>>>> f9125ecf7de94a12b760f7bad75b3dafa8e11d98
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa07767a37bb4154f88e5843cefa4c31, type: 2}
@@ -4702,7 +4691,6 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
-<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 224348555601052842, guid: aa07767a37bb4154f88e5843cefa4c31,
         type: 2}
@@ -4713,8 +4701,6 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 1
-=======
->>>>>>> f9125ecf7de94a12b760f7bad75b3dafa8e11d98
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa07767a37bb4154f88e5843cefa4c31, type: 2}

@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+<<<<<<< HEAD
 # Visual Studio for Mac
+=======
+# Visual Studio 15
+>>>>>>> parent of 85bb9c9... Merge branch 'master' of https://github.com/ProjectHND/game_Project
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{AAEEFD20-9489-9BA2-6C3B-E524A4D01E2E}"
 EndProject
 Global
