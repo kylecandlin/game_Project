@@ -1611,14 +1611,14 @@ MonoBehaviour:
   staminaBarInventory: {fileID: 2055581073}
   regenTime: 0
   tempTime: 0
-  inputUsername: 
-  inputPassword: 
-  inputHealth: 0
-  inputStamina: 0
-  inputMana: 0
-  inputMaxHealth: 0
-  inputMaxStamina: 0
-  inputMaxMana: 0
+  inputUsername: Kyle
+  inputPassword: 34543
+  inputHealth: 1
+  inputStamina: 62
+  inputMana: 97
+  inputMaxHealth: 100
+  inputMaxStamina: 100
+  inputMaxMana: 100
   controlScript: {fileID: 0}
 --- !u!114 &880832712
 MonoBehaviour:
