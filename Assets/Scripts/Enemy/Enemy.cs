@@ -33,8 +33,7 @@ public class Enemy : MonoBehaviour
         if (Input.GetKey(KeyCode.G)) {
             EnemyHealth -= 20;
         }
-        var wantedPos = Camera.main.WorldToScreenPoint(statBar.position);
-        transform.position = wantedPos;
+        statBar.transform.position = Camera.main.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y+2, 0));        
     }
     void OnTriggerEnter2D(Collider2D other)
     {
