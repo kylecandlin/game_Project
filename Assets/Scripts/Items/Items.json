@@ -1,0 +1,29 @@
+{
+     "Items": [{
+		 "Name": Sword,
+         "Description": "it is barely sharp.",
+         "Damage": 20,
+		 "Rarity": Common,
+		 "Value": 100,
+		 "Type": Melee
+		 },
+
+		 {
+		 "Name": BigSword,
+         "Description": "it is sharp.",
+         "Damage": 30,
+		 "Rarity": Uncommon,
+		 "Value": 150,
+		 "Type": Melee
+		 },
+
+		 {
+		 "Name": LargeSword,
+         "Description": "it is very sharp.",
+         "Damage": 40,
+		 "Rarity": Rare,
+		 "Value": 200,
+		 "Type": Melee
+		 },
+
+		 ]}

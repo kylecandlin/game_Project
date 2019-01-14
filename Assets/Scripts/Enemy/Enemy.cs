@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public Player_Stats statsScript;
     public Transform statBar;
 
-    private int EnemyHealth;
+    public int EnemyHealth;
 
     // Use this for initialization
     void Start()
@@ -47,10 +47,33 @@ public class Enemy : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, targetpos.position) < attackDis)
         {
-            transform.LookAt(targetpos.position);
+            Attack();            
+        }
+        else{
+            Wander();
+        }
+    }
+
+    void Wander() {
+        var Wanderange = 10;
+        var xPos = transform.position.x;
+        if (xPos >= xPos - Wanderange)
+        {
+            transform.LookAt(new Vector3(0, 0, 0));
             transform.Rotate(new Vector3(0, -90, 0), Space.Self);
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
+        else if (xPos <= xPos + Wanderange) {
+            transform.LookAt(new Vector3(0, 0, 0));
+            transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+        }
+    }
+
+    void Attack() {
+        transform.LookAt(targetpos.position);
+        transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+        transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
     }
 
     void IsDead() {

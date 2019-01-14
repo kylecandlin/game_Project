@@ -11,6 +11,7 @@ public class Player_Stats : MonoBehaviour
     public float currentMana; public float maxMana; public Slider manaBar; public Slider manaBarInventory;// Mana attributes 
     public float currentStamina; public float maxStamina; public Slider staminaBar; public Slider staminaBarInventory;// Stamina attributes  
     public float regenTime; public float tempTime; // Regeneration time 
+    public bool godMode;
 
     // Scripts and foreign variables
     public Player_Basic_Move controlScript;
@@ -29,6 +30,7 @@ public class Player_Stats : MonoBehaviour
         currentHealth = maxHealth;
         currentMana = maxMana;
         currentStamina = maxStamina;
+        godMode = true;
         DisplayStats();
     }
 
@@ -38,6 +40,10 @@ public class Player_Stats : MonoBehaviour
         // Script setters and updaters
         controlScript = this.GetComponent<Player_Basic_Move>(); // Finding the script called Control   
         DisplayStats();
+
+        if (currentHealth <= 0 && godMode == false) {
+            Destroy(gameObject);
+        }
 
         if (Input.GetKeyDown(KeyCode.P))
         {

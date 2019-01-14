@@ -14,7 +14,16 @@ public class Inventory : MonoBehaviour {
     public GameObject SettingsPanel;
     public GameObject InventoryBackground;
     public GameObject InventorySlotPrefab;
-    public GameObject prefab;
+    public GameObject[] prefab;
+    
+    // Parent slots
+    public GameObject SlotParent;
+    public Transform SlotParentTrans;
+    private Inventory inventory;
+    private InventorySlot[] slots;
+
+    private GameObject go;
+
     private Camera cam;
     private bool displaying;
     private RectTransform rect;
@@ -30,6 +39,7 @@ public class Inventory : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+       
         y = -30;
         x = 30;
         maxCol = 10;
@@ -85,12 +95,16 @@ public class Inventory : MonoBehaviour {
 
     }
 
+    int k =0;
+
     public void PopulateInventorySlots() {
+        prefab = new GameObject[inventorySize];
         for (int i = 0; i < maxCol; i++) {
-            for (int j = 0; j < maxRow; j++) {
-                
-                prefab = Instantiate(InventorySlotPrefab, new Vector3((i * x * 2)+30,(j+1) * 2* y,0), Quaternion.identity) as GameObject;
-                prefab.transform.SetParent (InventoryPanel.transform, false);
+            for (int j = 0; j < maxRow; j++) {                
+                go = Instantiate(InventorySlotPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject; 
+                go.transform.SetParent (SlotParent.transform, false);
+                go = prefab[k];
+                k++;                
             }
         }
     }

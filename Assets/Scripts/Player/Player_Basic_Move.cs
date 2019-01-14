@@ -23,6 +23,7 @@ public class Player_Basic_Move : MonoBehaviour
 
     public LayerMask groundLayer; // Ground interaction layer for player
 
+
     Rigidbody2D rb2d; // Players 2D Rigid Body
     Camera MainCamera;
     [Range(0f, 30f)]
@@ -54,6 +55,7 @@ public class Player_Basic_Move : MonoBehaviour
         Walk();
         Jump();
         OtherControls();
+    
     }
 
     // Applies Walk motions
@@ -115,8 +117,14 @@ public class Player_Basic_Move : MonoBehaviour
         return false; // Player not on ground
     }
 
-    // Calculates the angle of the slope beneath the player
-    float SlopeAngle()
+
+
+
+
+
+
+        // Calculates the angle of the slope beneath the player
+        float SlopeAngle()
     {
         RaycastHit2D[] hits = new RaycastHit2D[2]; // Stores Raycast hits
         int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits); // Cast Raycast downwards
