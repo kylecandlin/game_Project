@@ -3984,6 +3984,7 @@ MonoBehaviour:
   prefab: []
   SlotParent: {fileID: 5863931}
   SlotParentTrans: {fileID: 0}
+  item1: {fileID: 1528462225612370, guid: 55f442044b53922449d63a30eba35dda, type: 2}
   x: 0
   y: 0
   totalGold: 0
