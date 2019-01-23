@@ -8,6 +8,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Color.r
       value: 0.7735849
       objectReference: {fileID: 0}
@@ -47,6 +51,52 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1301859946115912}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_name
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 114401142669215324}
+    - target: {fileID: 0}
+      propertyPath: slot
+      value: 
+      objectReference: {fileID: 1301859946115912}
+    - target: {fileID: 0}
+      propertyPath: test
+      value: 
+      objectReference: {fileID: 1528462225612370, guid: 55f442044b53922449d63a30eba35dda,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1445420879669470, guid: 9441d8652a7ce4e49a80c3b41fe91427,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1301859946115912}
@@ -149,6 +199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0d909c78b4c724d8c52df6737d2d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryScript: {fileID: 0}
+  slot_Location: []
+  Player: {fileID: 1445420879669470, guid: 9441d8652a7ce4e49a80c3b41fe91427, type: 2}
+  test: {fileID: 1528462225612370, guid: 55f442044b53922449d63a30eba35dda, type: 2}
+  button: {fileID: 114401142669215324}
 --- !u!222 &222190100719812908
 CanvasRenderer:
   m_ObjectHideFlags: 1

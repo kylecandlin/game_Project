@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour {
     public GameObject SettingsPanel;
     public GameObject InventoryBackground;
     public GameObject InventorySlotPrefab;
-    public GameObject[] prefab;
+    public GameObject[] slotLocation;
     
     // Parent slots
     public GameObject SlotParent;
@@ -73,7 +73,7 @@ public class Inventory : MonoBehaviour {
             Tabs.SetActive(displaying);
             Panels.SetActive(displaying);
             item2 = Instantiate(item1, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            item2.transform.SetParent(prefab[23].transform, false);
+            item2.transform.SetParent(slotLocation[23].transform, false);
         }
     }
   
@@ -101,13 +101,15 @@ public class Inventory : MonoBehaviour {
     int k =0;
 
     public void PopulateInventorySlots() {
-        
-        prefab = new GameObject[inventorySize];
+        int slotName = 0;
+        slotLocation = new GameObject[inventorySize];
         for (int i = 0; i < maxCol; i++) {
             for (int j = 0; j < maxRow; j++) {
                 go = Instantiate(InventorySlotPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 go.transform.SetParent (SlotParent.transform, false);
-                prefab[k] = go;
+                slotName++;
+                go.name = slotName.ToString();
+                slotLocation[k] = go;
                 k++;   
                 
             }
