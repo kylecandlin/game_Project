@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    // Foreign Scripts and Variables
     public GameObject Player;
     public Transform targetpos;
-    public float speed;
-    public float attackDis;
     public Player_Stats statsScript;
     public Transform statBar;
 
-    public int EnemyHealth;
+    // Enemy Stats
+    public float speed, attackDis;
+    public int EnemyHealth; 
 
     // Use this for initialization
     void Start()
@@ -21,8 +21,7 @@ public class Enemy : MonoBehaviour
         statsScript = Player.GetComponent<Player_Stats>();
         speed = 2;
         attackDis = 6f;
-        EnemyHealth = 50;
-       
+        EnemyHealth = 50;       
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class Enemy : MonoBehaviour
         }
         statBar.transform.position = Camera.main.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y+2, 0));        
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {

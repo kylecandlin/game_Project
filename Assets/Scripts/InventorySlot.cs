@@ -5,9 +5,23 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour {
 
+    public Transform inventoryTransform;
+    public Inventory Inventory;
+
+    void OnMouseEnter()
+    {
+        inventoryTransform.GetComponent<Inventory>().selectedSlot = this.transform;
+
+    }
+    void OnMouseExit()
+    {
+        inventoryTransform.GetComponent<Inventory>().selectedSlot = null;
+    }
+
+
     public Inventory inventoryScript;
     public GameObject[] slot_Location;
-    public GameObject Player;
+    public GameObject inventoryMenu;
     private GameObject currentItem;
     public GameObject test;
     public Button button;
@@ -16,18 +30,13 @@ public class InventorySlot : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        Player = GameObject.Find("Player");
-        inventoryScript = Player.GetComponent<Inventory>();
         child = false;
-        button.onClick.AddListener(ButtonClicked);
-       
+        button.onClick.AddListener(ButtonClicked);     
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-        slot_Location = inventoryScript.slotLocation;
         item2 = Instantiate(test, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         item2.transform.SetParent(inventoryScript.slotLocation[2].transform, false);
         if (transform.childCount > 0)

@@ -7,6 +7,9 @@ TagManager:
   - Ghost
   - Canvas
   - Enemy
+  - InventoryMenu
+  - LogicGate
+  - HotBarUI
   layers:
   - Default
   - TransparentFX

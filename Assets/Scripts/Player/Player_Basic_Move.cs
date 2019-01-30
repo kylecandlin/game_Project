@@ -5,24 +5,20 @@ using UnityEngine.UI;
 
 public class Player_Basic_Move : MonoBehaviour
 {
-
-    // Foreign Scripts
+    // Foreign Scripts and Variables
     public Player_Stats Player_Stats;
     public float Player_Stats_CurrentStamina;
 
     public GameObject Gold;
 
-    public float walkSpeed; // The default value for walking
-    public float runSpeedMultiplier; // The value used to multiply walk speed by 
-    public float moveSpeed; // The calculated output for speed of movement
-    public float jumpForce; // The Force of the jump
-    float y;
+    // Respectively: Value for walking, run multiplier for walkspeed, 
+    // speed of movement, jump force, y update component
+    public float walkSpeed, runSpeedMultiplier, moveSpeed, jumpForce, y; 
     public bool canDoubleJump; // Boolean defining whether the player is allowed a second jump 
     public string grounded; // String value to identify when the player is grounded 
     private float angle; // The Angle of the slope beneath the player
 
     public LayerMask groundLayer; // Ground interaction layer for player
-
 
     Rigidbody2D rb2d; // Players 2D Rigid Body
     Camera MainCamera;
@@ -39,7 +35,7 @@ public class Player_Basic_Move : MonoBehaviour
         walkSpeed = 4f;
         runSpeedMultiplier = 2f;
         moveSpeed = walkSpeed;
-        jumpForce = 5;
+        jumpForce = 7;
     }
 
     void Update()
@@ -48,36 +44,32 @@ public class Player_Basic_Move : MonoBehaviour
         Player_Stats = this.GetComponent<Player_Stats>();
         Player_Stats_CurrentStamina = Player_Stats.currentStamina;
 
-        MainCamera.orthographicSize = cameraZoom;
+        MainCamera.orthographicSize = cameraZoom; // sets camera zoom
         Player_Stats.Regeneration(0.2f, 1, 1, true); // Base regeration
 
         SlopeAngle();
         Walk();
         Jump();
-        OtherControls();
-    
+        OtherControls();    
     }
 
     // Applies Walk motions
     void Walk()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && Player_Stats_CurrentStamina > 0f)
-        {
+        // allows the player to sprint if they have enough stamina
+        if (Input.GetKey(KeyCode.LeftShift) && Player_Stats_CurrentStamina > 0f) {
             Player_Stats.AlterStats(0, -1, 0);
             moveSpeed = walkSpeed * runSpeedMultiplier;
         }
-        else
-        {
-            moveSpeed = walkSpeed;
+        else {
+            moveSpeed = walkSpeed; // if the player isnt sprinting set to walkspeed
         }
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-
-        Vector2 movement_x = new Vector2(moveHorizontal * moveSpeed, 0);
-        Vector2 movement_y = new Vector2(0, y);
-
-        rb2d.position += movement_x * Time.deltaTime;
-        rb2d.AddForce(movement_y, ForceMode2D.Impulse);
+        float moveHorizontal = Input.GetAxis("Horizontal"); // recieve input
+        Vector2 movement_x = new Vector2(moveHorizontal * moveSpeed, 0); // create movement vector x
+        Vector2 movement_y = new Vector2(0, y); // create movement vector y
+        rb2d.position += movement_x * Time.deltaTime; // Horizontal player movement application
+        rb2d.AddForce(movement_y, ForceMode2D.Impulse); // Vertical player movement application
     }
 
     // Applies Jump motions
@@ -108,8 +100,7 @@ public class Player_Basic_Move : MonoBehaviour
         Vector2 position = transform.position; // Origin of Raycast
         Vector2 direction = new Vector2((0), (-1)); // Direction of Raycast
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer); // Cast Raycast
-        if (hit.collider != null) // If hit is detected from Raycast
-        {
+        if (hit.collider != null) { // If hit is detected from Raycast        
             grounded = "Grounded";
             return true; // Player on ground
         }
@@ -117,19 +108,12 @@ public class Player_Basic_Move : MonoBehaviour
         return false; // Player not on ground
     }
 
-
-
-
-
-
-
         // Calculates the angle of the slope beneath the player
-        float SlopeAngle()
+    float SlopeAngle()
     {
         RaycastHit2D[] hits = new RaycastHit2D[2]; // Stores Raycast hits
         int h = Physics2D.RaycastNonAlloc(transform.position, -Vector2.up, hits); // Cast Raycast downwards
-        if (h > 1) // Detect when more than one Raycast hits
-        {
+        if (h > 1) { // Detect when more than one Raycast hits
             angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y) * Mathf.Rad2Deg); // Calculate angle            
         }
         return angle; // Return Angle float value
@@ -139,12 +123,10 @@ public class Player_Basic_Move : MonoBehaviour
     void OtherControls()
     {
         // List of other Controls
-        if (Input.GetKeyDown(KeyCode.X))
-        {
+        if (Input.GetKeyDown(KeyCode.X)) {
             Player_Stats.AlterStats(-10, 0, -10);
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
+        if (Input.GetKeyDown(KeyCode.P)) {
             Instantiate(Gold, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }

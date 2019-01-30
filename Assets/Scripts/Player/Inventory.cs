@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-    public GameObject Tabs;
-    public GameObject Panels;
-    public GameObject InventoryTab;
-    public GameObject PlayerTab;
-    public GameObject SettingsTab;
-    public GameObject InventoryPanel;
-    public GameObject PlayerPanel;
-    public GameObject SettingsPanel;
+    // test
+    public Transform selectedItem, selectedSlot, orginalSlot;
+    public bool canGrab = false;
+
+    public GameObject Tabs, InventoryTab, PlayerTab, SettingsTab;
+    public GameObject Panels, InventoryPanel, PlayerPanel, SettingsPanel;
     public GameObject InventoryBackground;
     public GameObject InventorySlotPrefab;
     public GameObject[] slotLocation;
@@ -19,7 +17,6 @@ public class Inventory : MonoBehaviour {
     // Parent slots
     public GameObject SlotParent;
     public Transform SlotParentTrans;
-    private Inventory inventory;
     private InventorySlot[] slots;
 
     private GameObject go;
@@ -60,6 +57,15 @@ public class Inventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetMouseButton(0) && selectedItem != null)
+        {
+            selectedItem.position = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0) && selectedItem != null) {
+            selectedItem.localPosition = Vector3.zero;
+        }
+
+
         textGold.text = "Gold: " + totalGold.ToString();
         rect.sizeDelta = new Vector2(Screen.width,Screen.height);
         InventoryToggle();        
@@ -118,8 +124,12 @@ public class Inventory : MonoBehaviour {
 
     }
 
+    // quits application
     public void Quit() {
         Application.Quit();
     }
+
+
+   
 
 }
