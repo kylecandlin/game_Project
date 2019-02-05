@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Player\Player_Stats.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\DeathZone.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\Level1Control.cs" />
+    <Compile Include="Assets\Scripts\SceneScripts\Login.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\TutorialControl.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Natha/OneDrive/Documents/GitHub/game_Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
