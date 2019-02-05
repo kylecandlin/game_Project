@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: a781fc8b33195154f8b65ba181aefe28
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Player: {instanceID: 0}
+  - interactable: {instanceID: 0}
+  - interactableScript: {instanceID: 0}
+  - LogicSlot: {instanceID: 0}
+  - LogicSlotImage: {instanceID: 0}
+  - output: {instanceID: 0}
+  - not: {fileID: 21300000, guid: b4c89da5d36d25b4d9fe887949bb3e41, type: 3}
+  - and: {fileID: 21300000, guid: 9766b2627ec29764dbb3e2cb134a7432, type: 3}
+  - or: {instanceID: 0}
+  - selectedGateImage: {instanceID: 0}
+  - logicSlotImage_r: {instanceID: 0}
+  - puzzle_r: {instanceID: 0}
+  - output_r: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

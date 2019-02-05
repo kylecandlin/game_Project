@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour {
 
-    public Text andText, orText, notText;
-    public int andNumber, orNumber, notNumber;
+    public Text andText, xorText, notText;
+    public int andNumber, xorNumber, notNumber;
 
     public void HotBarUpdate(string name) {
         switch (name)
@@ -14,15 +14,15 @@ public class HotBar : MonoBehaviour {
             case ("andPrefab"):
                 andNumber ++;
                 break;
-            case ("orPrefab"):
-                orNumber ++;
+            case ("xorPrefab"):
+                xorNumber ++;
                 break;
             case ("notPrefab"):
                 notNumber++;
                 break;
         }
         andText.text = andNumber.ToString();
-        orText.text = orNumber.ToString();
+        xorText.text = xorNumber.ToString();
         notText.text = notNumber.ToString();
     }
 }

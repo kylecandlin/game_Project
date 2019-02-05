@@ -53,3 +53,6 @@ TagManager:
   - name: Inventory
     uniqueID: 3113075429
     locked: 0
+  - name: Scenery
+    uniqueID: 3105291319
+    locked: 0
