@@ -12,13 +12,15 @@ public class Enemy : MonoBehaviour
 
     // Enemy Stats
     public float speed, attackDis;
-    public int EnemyHealth; 
+    public int EnemyHealth;
+    public GameObject[] itemDrops;    
 
     // Use this for initialization
     void Start()
     {
         Player = GameObject.Find("Player");
         statsScript = Player.GetComponent<Player_Stats>();
+        targetpos = Player.GetComponent<Transform>();
         speed = 2;
         attackDis = 6f;
         EnemyHealth = 50;       
@@ -27,7 +29,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        FSM();
         IsDead();
         if (Input.GetKey(KeyCode.G)) {
             EnemyHealth -= 20;
@@ -42,7 +44,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Move()
+    // Enemy Finite State Machine
+    private void FSM()
     {
         if (Vector3.Distance(transform.position, targetpos.position) < attackDis)
         {
@@ -76,8 +79,12 @@ public class Enemy : MonoBehaviour
     }
 
     void IsDead() {
-        if (EnemyHealth <= 0) {
-            Destroy(gameObject);
+        if (EnemyHealth <= 0) { 
+            // Drops items in array on death
+            for (int i = 0; i < itemDrops.Length; i ++) {
+                Instantiate(itemDrops[i], new Vector3(0,0,0), Quaternion.identity);
+            }
+            Destroy(gameObject); // removes enemy object
         }
     }
 

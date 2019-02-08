@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Sprites;
+using UnityEngine.SceneManagement;
 
 
 public class Puzzle : MonoBehaviour {
@@ -10,6 +10,7 @@ public class Puzzle : MonoBehaviour {
     // Foreign Scripts and Variables
     public GameObject Player, interactable, Door;
     public Interactable interactableScript;
+    public HotBar HotBar;
     Rigidbody2D playerRb2d;
     public Vector3 target;
 
@@ -17,7 +18,7 @@ public class Puzzle : MonoBehaviour {
     public Sprite not, and, xor, selectedGateImage;
     public SpriteRenderer logicSlotImage_r, puzzle_r, output_r;
     public string[] unlockSquence;
-    public string selectedGateName;
+    public string selectedGateName, sceneName;
     public bool unlockedBool = false, completed = false;
     public float moveUp;
 
@@ -40,12 +41,19 @@ public class Puzzle : MonoBehaviour {
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // ray of mouse position
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity); // detects raycast hit
-            Debug.Log(hit.collider.gameObject.name);
+            try
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
+            catch {
+                Debug.Log("No gameobject in ray path");
+            }
+
             if (hit && hit.collider.gameObject.name == "LogicSlot" && completed == false)
             {
-                logicSlotImage_r.sprite = selectedGateImage;
+                logicSlotImage_r.sprite = HotBar.selectedGateImage;
                 for (int i = 0; i < unlockSquence.Length; i++) {
-                    if (selectedGateName == unlockSquence[i])
+                    if (HotBar.selectedGateName == unlockSquence[i])
                     {
                         Debug.Log("Unlocked");
                         unlockedBool = true;
@@ -75,48 +83,24 @@ public class Puzzle : MonoBehaviour {
         // unfreezes motion and locks rotation
         playerRb2d.constraints = RigidbodyConstraints2D.None;
         playerRb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        ChangeScene();
         MoveDoor();
     }
 
     // function called when puzzle is successfully completed
     public void Unlocked() {
         completed = true;
-        StartCoroutine(Success());
-        
+        StartCoroutine(Success());        
     }
 
-    // Detects which logic gate has been pressed 
-    //and assigns the correct image to a variable
-    public void Insert(string logicName) {
-        selectedGateName = logicName; // allows for global access
-        Debug.Log("Insert" + logicName);
-
-        // detects what image to use based on the players logic gate selection
-        switch (logicName) {
-            case ("NOT"):
-                selectedGateImage = not;
-                break;
-            case ("AND"):
-                selectedGateImage = and;
-                break;
-            case ("XOR"):
-                selectedGateImage = xor;
-                break;
-        }
+    public void MoveDoor() {       
+            Door.transform.Translate(new Vector2(moveUp,0));      
     }
 
-    public void MoveDoor() {
-        while (Door.transform.position.y != moveUp) {
-            
-            float step = 1f * Time.deltaTime; // calculate distance to move
-            Door.transform.position = Vector3.MoveTowards(Door.transform.position, new Vector3(0, moveUp, 0), step);
-            // Move our position a step closer to the target.
-
-
-        }
-
-
+    public void ChangeScene (){
+        if (sceneName != null) {
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        }     
     }
 
 }

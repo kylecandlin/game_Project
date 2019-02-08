@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LogicGateUI : MonoBehaviour {
-    public Puzzle Puzzle;
+    public HotBar Hotbar;
 
     public void Clicked() {
-        Puzzle.Insert(this.name);
+        Hotbar.Insert(this.name);
     }
 }

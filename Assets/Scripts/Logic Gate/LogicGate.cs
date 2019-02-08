@@ -24,8 +24,9 @@ public class LogicGate : MonoBehaviour
         // when there is a collision with player 
         // send prefab name to HotBar script
         if (other.gameObject.tag == "Player")
-        {           
-            HotBarScript.HotBarUpdate(this.name);
+        {
+            Debug.Log("LogicGate      " + this.name);
+            HotBarScript.HotBarUpdate(this.gameObject.tag);
             Destroy(gameObject);
         }
     }

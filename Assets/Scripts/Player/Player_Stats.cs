@@ -15,13 +15,23 @@ public class Player_Stats : MonoBehaviour
 
     // Scripts and foreign variables
     public Player_Basic_Move controlScript;
+    public GameObject PlayerDetailsObj;
+    public PlayerDetails PlayerDetails;
+
+    // Database Variables
+    private string inputUsername, inputPassword;
+    private float inputHealth, inputStamina, inputMana;
+    string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php", 
+    update_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/updateStat.php";
 
     //Initialization
     void Start()
     {
+        PlayerDetails = PlayerDetailsObj.GetComponent<PlayerDetails>();
+
         regenTime = 0.05f; // time to regenerate stats (one increment)
         tempTime = regenTime;
-        maxHealth = 80;
+        maxHealth = 100;
         maxMana = 80;
         maxStamina = 300;
         currentHealth = maxHealth;
@@ -41,6 +51,9 @@ public class Player_Stats : MonoBehaviour
         if (currentHealth <= 0 && godMode == false) {
             Destroy(gameObject);
         }
+        inputHealth = currentHealth;
+        inputStamina = currentStamina;
+        InsertData();
     }
 
     public void Regeneration(float healthRegen, float staminaRegen, float manaRegen, bool active)
@@ -107,5 +120,14 @@ public class Player_Stats : MonoBehaviour
         }
 
 
+    }
+
+    public void InsertData()
+    {
+        WWWForm updateForm = new WWWForm();
+        updateForm.AddField("usernamePOST", PlayerDetails.username);
+        updateForm.AddField("healthPOST", inputHealth.ToString());
+        updateForm.AddField("staminaPOST", inputStamina.ToString());
+        WWW filePush2 = new WWW(update_Link, updateForm);
     }
 }

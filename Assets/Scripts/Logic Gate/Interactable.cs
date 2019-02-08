@@ -28,10 +28,12 @@ public class Interactable : MonoBehaviour {
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.enabled = false;
         cc2d.radius = interactionRadius;
-        targetSprite.enabled = false;
+        //targetSprite.enabled = false;
 
-        foreach (Renderer r in toggleTarget.GetComponentsInChildren<Renderer>())
-            r.enabled = false;
+        toggleTarget.SetActive(false);
+
+        //foreach (Renderer r in toggleTarget.GetComponentsInChildren<Renderer>())
+          //  r.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -53,10 +55,11 @@ public class Interactable : MonoBehaviour {
             sprite.transform.position = (new Vector2(rb2d.position.x + 1, rb2d.position.y +2));
             if (Input.GetKeyDown(KeyCode.E)) {           
                 displaying = !displaying;
-                targetSprite.enabled = displaying;
+                //targetSprite.enabled = displaying;
+                toggleTarget.SetActive(displaying);
                 Debug.Log("displaying " + displaying);
-                foreach (Renderer r in toggleTarget.GetComponentsInChildren<Renderer>())
-                    r.enabled = displaying;
+                //foreach (Renderer r in toggleTarget.GetComponentsInChildren<Renderer>())
+                  //  r.enabled = displaying;
             }
             if (canMove == false && displaying == true) {
                 rb2d.constraints = RigidbodyConstraints2D.FreezeAll;                

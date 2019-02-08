@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114418174285585986}
   m_Layer: 0
   m_Name: andPrefab
-  m_TagString: LogicGate
+  m_TagString: andPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

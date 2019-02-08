@@ -10,6 +10,9 @@ TagManager:
   - InventoryMenu
   - LogicGate
   - HotBarUI
+  - andPrefab
+  - notPrefab
+  - xorPrefab
   layers:
   - Default
   - TransparentFX
