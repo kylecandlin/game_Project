@@ -5364,6 +5364,7 @@ MonoBehaviour:
     m_Bits: 512
   enemyScript: {fileID: 0}
   enemyObj: {fileID: 0}
+  part: {fileID: 0}
 --- !u!224 &951876871 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224480222482089208, guid: 370cddf1d928b8945a1b93e34dae9f1e,

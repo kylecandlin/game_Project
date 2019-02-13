@@ -6,6 +6,7 @@ public class DeathZone : MonoBehaviour {
 
     public GameObject Player;
     public Level1Control Level1Control;
+    public Vector3 respawnCoordinates;
 
     // Use this for initialization
     void Start () {
@@ -22,7 +23,7 @@ public class DeathZone : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("collision");
-            Level1Control.Respawn();
+            Player.transform.position = respawnCoordinates;
         }
     }
 

@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class HotBar : MonoBehaviour {
 
     public Text andText, xorText, notText;
-    public int andNumber, xorNumber, notNumber;
-
-    // test
+    public int andNumber, xorNumber, notNumber, prevAndNumber, prevXorNumber, prevNotNumber;
+  
     public Sprite not, and, xor, selectedGateImage;
     public string selectedGateName;
 
@@ -26,9 +25,7 @@ public class HotBar : MonoBehaviour {
                 notNumber++;
                 break;
         }
-        andText.text = andNumber.ToString();
-        xorText.text = xorNumber.ToString();
-        notText.text = notNumber.ToString();
+        DisplayNumbers();
     }
 
     public void Insert(string logicName) {
@@ -48,5 +45,38 @@ public class HotBar : MonoBehaviour {
                 selectedGateImage = xor;
                 break;
         }
+    }
+
+    public void UpdateNumber(int additionVal) {
+        
+        // detects what image to use based on the players logic gate selection
+        switch (selectedGateName)
+        {
+            case ("NOT"):
+                prevNotNumber = notNumber;
+                notNumber += additionVal;
+                andNumber = prevAndNumber;
+                xorNumber = prevXorNumber;
+                break;
+            case ("AND"):
+                prevAndNumber = andNumber;
+                andNumber += additionVal;
+                xorNumber = prevXorNumber;
+                notNumber = prevNotNumber;
+                break;
+            case ("XOR"):
+                prevXorNumber = xorNumber;
+                xorNumber += additionVal;
+                andNumber = prevAndNumber;
+                notNumber = prevNotNumber;
+                break;
+        }
+        DisplayNumbers();
+    }
+
+    public void DisplayNumbers() {
+        andText.text = andNumber.ToString();
+        xorText.text = xorNumber.ToString();
+        notText.text = notNumber.ToString();
     }
 }

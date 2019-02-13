@@ -1262,6 +1262,7 @@ MonoBehaviour:
   passwordInputField: {fileID: 2124656542}
   PlayerDetailsObj: {fileID: 1560676295232190, guid: 72a03dacfa700354a835a5d006908b90,
     type: 2}
+  mainMenuCanvas: {fileID: 1963157975}
   PlayerDetails: {fileID: 114919593042049088, guid: 72a03dacfa700354a835a5d006908b90,
     type: 2}
   file: 

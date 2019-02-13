@@ -61,7 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PlayerDetails.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\Gold.cs" />
     <Compile Include="Assets\Scripts\Items\Items.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Assets\Scripts\Player\Player_Basic_Move.cs" />
     <Compile Include="Assets\Scripts\Player\Player_Controls.cs" />
     <Compile Include="Assets\Scripts\Player\Player_Stats.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerDetails.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\DeathZone.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\Level1Control.cs" />
     <Compile Include="Assets\Scripts\SceneScripts\TutorialControl.cs" />

@@ -8,20 +8,29 @@ public class Login : MonoBehaviour {
     string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php", 
     playerDownload_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/ItemsData.php";
     public InputField usernameInputField, passwordInputField;
-    public GameObject PlayerDetailsObj;
+    public GameObject PlayerDetailsObj, mainMenuCanvas;
     public PlayerDetails PlayerDetails;
 
     // Database variables
     public string file;
     public string[] items;
     public bool coRoutineDone;
-    public int databaseAndGate;
-    public int databaseNotGate;
-    public int databaseXorGate;
+    public int databaseAndGate, databaseNotGate, databaseXorGate;
 
     public void Start()
     {
         PlayerDetails = PlayerDetailsObj.GetComponent<PlayerDetails>();
+        if (PlayerDetails.username.ToString() != "")
+        {
+            Debug.Log(PlayerDetails.username);
+            this.gameObject.SetActive(false);
+            mainMenuCanvas.SetActive(true);
+        }
+        else if (PlayerDetails.username.ToString() == "")
+        {
+            this.gameObject.SetActive(true);
+            mainMenuCanvas.SetActive(false);
+        }
     }
 
     // Use this for initialization
@@ -35,7 +44,7 @@ public class Login : MonoBehaviour {
         databaseAndGate = int.Parse(GetDataValue(items[0], "and_Gate:"));
         databaseNotGate = int.Parse(GetDataValue(items[0], "not_Gate:"));
         databaseXorGate = int.Parse(GetDataValue(items[0], "xor_Gate:"));
-        print(databaseAndGate);
+       
     }
 
     string GetDataValue(string data, string index) {

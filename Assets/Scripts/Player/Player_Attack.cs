@@ -4,38 +4,59 @@ using UnityEngine;
 
 public class Player_Attack : MonoBehaviour {
 
-    public string hitb;
     public LayerMask Enemy;
     public Enemy enemyScript;
-    public GameObject enemyObj;
+    public GameObject rightArmPlayer, playerObj;
+
+    public ParticleSystem part;
+    public List<ParticleCollisionEvent> collisionEvents;
+    bool damage;
 
     // Use this for initialization
     void Start () {
-        enemyObj = GameObject.Find("Enemy");
-        enemyScript = enemyObj.GetComponent<Enemy>();
+       
+        collisionEvents = new List<ParticleCollisionEvent>();
+        part = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update() {
-        attack();
+        Vector3 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 lookAt = mouseScreenPosition;
+
+        float AngleRad = Mathf.Atan2(lookAt.y - playerObj.transform.position.y, lookAt.x - playerObj.transform.position.x);
+
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        Debug.Log(AngleDeg);
+        
+        
+        if (Input.GetMouseButton(0))
+        {
+            if (AngleDeg <= 90 && AngleDeg >= -60)
+            {
+                rightArmPlayer.transform.rotation = Quaternion.Euler(0, 0, AngleDeg + 30);
+            }
+            part.Play();
+        }
+        else {
+            part.Stop();
+        }
     }
 
-    public void attack()
+    void OnParticleCollision(GameObject other)
     {
-        float distance = 2f; // Length of Raycast
-        Vector2 position = transform.position; // Origin of Raycast
-        Vector2 direction = new Vector2(1, 0); // Direction of Raycast
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, Enemy); // Cast Raycast
-        if (hit.collider != null) // If hit is detected from Raycast
-        {
-            if (Input.GetMouseButtonDown(0))
+        Debug.Log("collision");
+        enemyScript = other.GetComponent<Enemy>();
+        damage = true;
+        Damage();
+    }
+
+    void Damage() {              
+            if (damage)
             {
-                enemyScript.EnemyHealth -= 5;
-             }
-            hitb = "detected";
-            return;
-        }
-        hitb = "false";
-        return;
+                enemyScript.EnemyHealth -= 0.2f;
+                damage = false;
+            }     
     }
 }
