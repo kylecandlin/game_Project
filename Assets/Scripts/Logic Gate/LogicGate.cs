@@ -9,9 +9,10 @@ public class LogicGate : MonoBehaviour
     public GameObject Player, HotBarUI;    
     public HotBar HotBarScript;
 
+
     // Update is called once per frame
     void Update()
-    {
+    {   
         // Variables and GameObjects allocation
         Player = GameObject.Find("Player");
         HotBarUI = GameObject.FindGameObjectWithTag("HotBarUI");

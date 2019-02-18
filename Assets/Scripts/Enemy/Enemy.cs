@@ -5,9 +5,7 @@ public class Enemy : MonoBehaviour
     public LayerMask groundLayer; // Ground interaction layer for player
 
     // Raycast angles for detecting boundaries
-    public float distance = 1.5f;
-    public float RightLowAngle = 290.0f;
-    public float LeftLowAngle = 250.0f;
+    public float distance = 1.5f, RightLowAngle = 290.0f, LeftLowAngle = 250.0f;
 
     // Foreign Scripts and Variables
     public GameObject Player;
@@ -15,8 +13,7 @@ public class Enemy : MonoBehaviour
     public Player_Stats statsScript;
 
     // Enemy Stats
-    public float speed, attackDis;
-    public float EnemyHealth;
+    public float speed, attackDis, EnemyHealth;
     public GameObject[] itemDrops;
 
     // Use this for initialization
@@ -82,6 +79,7 @@ public class Enemy : MonoBehaviour
             {
                 Instantiate(itemDrops[i], transform.position, Quaternion.identity);
             }
+          
             Destroy(gameObject); // removes enemy object
         }
     }

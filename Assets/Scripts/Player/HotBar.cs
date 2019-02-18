@@ -10,9 +10,16 @@ public class HotBar : MonoBehaviour {
   
     public Sprite not, and, xor, selectedGateImage;
     public string selectedGateName;
+    public AudioSource pickupSound;
+
+    private void Start()
+    {
+        pickupSound = GetComponent<AudioSource>();
+    }
 
     public void HotBarUpdate(string name) {
         Debug.Log("HotbarUpdate     "+name);
+        pickupSound.Play();
         switch (name)
         {
             case ("andPrefab"):
