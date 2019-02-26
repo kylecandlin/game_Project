@@ -174,14 +174,18 @@ MonoBehaviour:
   Player: {fileID: 0}
   interactable: {fileID: 0}
   Door: {fileID: 0}
+  nextSceneText: {fileID: 0}
+  playerUI: {fileID: 0}
   interactableScript: {fileID: 0}
   HotBar: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
-  LogicSlot: {fileID: 1579328698211776}
-  LogicSlotImage: {fileID: 1790664049403890}
   output: {fileID: 1013221221260468}
   greenExplosion: {fileID: 1201615419361770, guid: 21a2f306f6debc54fb45123e66bcc8bc,
     type: 2}
+  LogicSlotImage: {fileID: 1790664049403890}
+  logicSlotImage_t: {fileID: 0}
+  LogicSlot:
+  - {fileID: 0}
   not: {fileID: 21300000, guid: b4c89da5d36d25b4d9fe887949bb3e41, type: 3}
   and: {fileID: 21300000, guid: 9766b2627ec29764dbb3e2cb134a7432, type: 3}
   xor: {fileID: 21300000, guid: 1549aeee3f3eaf94d88c82d26e824afd, type: 3}
@@ -191,10 +195,13 @@ MonoBehaviour:
   output_r: {fileID: 212252371493928686}
   unlockSquence:
   - NOT
+  gateArray: []
   selectedGateName: 
+  sceneName: 
   unlockedBool: 0
   completed: 0
   moveUp: 10
+  inputValues: 
 --- !u!212 &212118605275634926
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -229,7 +236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1874384631
   m_SortingLayer: 1
-  m_SortingOrder: 100
+  m_SortingOrder: 101
   m_Sprite: {fileID: 21300000, guid: 5153bf509aab4b44abc784081d2b112c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

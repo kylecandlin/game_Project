@@ -4,86 +4,172 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour {
+    // Database Variables
+    string logicGateRecieve_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/ItemsData.php", 
+        logicGateSend_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/UpdateGateGame.php";
+    public int databaseAndGate, databaseNotGate, databaseXorGate;
+    string[] items;
 
-    public Text andText, xorText, notText;
-    public int andNumber, xorNumber, notNumber, prevAndNumber, prevXorNumber, prevNotNumber;
-  
-    public Sprite not, and, xor, selectedGateImage;
-    public string selectedGateName;
-    public AudioSource pickupSound;
+    // Player Details
+    public PlayerDetails PlayerDetails;
+    public GameObject PlayerDetailsObj;
+
+    // Local Logic Gate Variables
+    public Text andText, xorText, notText; // UI display values
+    public int andNumber, xorNumber, notNumber, selectedGateAmount, // Number of Logic gates
+        prevAndNumber, prevXorNumber, prevNotNumber;
+    public Sprite not, and, xor, selectedGateImage; // Logic gate images
+    public string selectedGateName, databaseGateName; // last logic gate pressed
+    public AudioSource pickupSound; // Audio on pickup
 
     private void Start()
     {
-        pickupSound = GetComponent<AudioSource>();
+        PlayerDetails = PlayerDetailsObj.GetComponent<PlayerDetails>();
+        pickupSound = GetComponent<AudioSource>();        
     }
 
+    private void Update()
+    {
+        StartCoroutine(RecieveLogicGateNumber());
+
+    }
+
+    // Gameobject pickup for logic gates
     public void HotBarUpdate(string name) {
         Debug.Log("HotbarUpdate     "+name);
         pickupSound.Play();
         switch (name)
         {
             case ("andPrefab"):
-                andNumber ++;
+                DetectAndSet("AND");
+                UpdateNumber(1, "AND",false);          
                 break;
             case ("xorPrefab"):
-                xorNumber ++;
+                DetectAndSet("XOR");
+                UpdateNumber(1, "XOR",false);                
                 break;
             case ("notPrefab"):
-                notNumber++;
+                DetectAndSet("NOT");
+                UpdateNumber(1, "NOT",false);               
                 break;
-        }
+        }       
         DisplayNumbers();
     }
 
-    public void Insert(string logicName) {
-        selectedGateName = logicName; // allows for global access
-        Debug.Log("Insert" + logicName);
+    // Changes number of logic gates
+    public void UpdateNumber(int additionVal, string gateName, bool dAS) {
+       
+        string updateSymbol = null; // symbol for databse
 
-        // detects what image to use based on the players logic gate selection
-        switch (logicName)
+        // conversions from addition value to symbol
+        if (additionVal > 0) { updateSymbol = "+"; }
+        else if (additionVal < 0) { updateSymbol = "-"; }
+        else { Debug.Log("Error: UpdateNumber zero value    value: "+ additionVal); } // error check if value zero
+        
+        // alters Logic gate number and updates database
+        switch (gateName)
         {
             case ("NOT"):
-                selectedGateImage = not;
+               
+                notNumber += additionVal;
+                
+                if (dAS == true) {
+                    DetectAndSet("NOT");
+                }                
                 break;
+
             case ("AND"):
-                selectedGateImage = and;
+             
+                andNumber += additionVal;
+                
+                if (dAS == true)
+                {
+                    DetectAndSet("AND");
+                }
                 break;
+
             case ("XOR"):
-                selectedGateImage = xor;
+             
+                xorNumber += additionVal;
+                
+                if (dAS == true)
+                {
+                   DetectAndSet("XOR");
+                }
                 break;
         }
+        for (int i = 0; i < Mathf.Abs(additionVal); i++)
+        {
+            Debug.Log("database name:   "+ databaseGateName);
+            StartCoroutine(SendLogicGateNumber(updateSymbol, databaseGateName.ToString()));
+        }
+        DisplayNumbers();
+
     }
 
-    public void UpdateNumber(int additionVal) {
-        
-        // detects what image to use based on the players logic gate selection
+    public void DetectAndSet(string logicName) {
+        selectedGateName = logicName; // allows for global access
         switch (selectedGateName)
         {
             case ("NOT"):
-                prevNotNumber = notNumber;
-                notNumber += additionVal;
-                andNumber = prevAndNumber;
-                xorNumber = prevXorNumber;
+                selectedGateAmount = notNumber;
+                databaseGateName = "not_Gate";
+                selectedGateImage = not;
                 break;
             case ("AND"):
-                prevAndNumber = andNumber;
-                andNumber += additionVal;
-                xorNumber = prevXorNumber;
-                notNumber = prevNotNumber;
+                selectedGateAmount = andNumber;
+                databaseGateName = "and_Gate";
+                selectedGateImage = and;
                 break;
             case ("XOR"):
-                prevXorNumber = xorNumber;
-                xorNumber += additionVal;
-                andNumber = prevAndNumber;
-                notNumber = prevNotNumber;
+                selectedGateAmount = xorNumber;
+                databaseGateName = "xor_Gate";
+                selectedGateImage = xor;
                 break;
         }
-        DisplayNumbers();
     }
 
     public void DisplayNumbers() {
         andText.text = andNumber.ToString();
         xorText.text = xorNumber.ToString();
         notText.text = notNumber.ToString();
+    }
+
+    // Number of Gates stored in the database
+    IEnumerator RecieveLogicGateNumber()
+    {
+        WWWForm UserNameForm = new WWWForm();
+        UserNameForm.AddField("usernamePOST", PlayerDetails.username);
+        WWW itemsData = new WWW(logicGateRecieve_Link, UserNameForm);
+        yield return itemsData;
+        string itemsDataString = itemsData.text;
+        items = itemsDataString.Split(';');
+     
+        databaseAndGate = int.Parse(ReturnValue(items[0], "and_Gate:"));
+        databaseNotGate = int.Parse(ReturnValue(items[0], "not_Gate:"));
+        databaseXorGate = int.Parse(ReturnValue(items[0], "xor_Gate:"));
+        andNumber = databaseAndGate;
+        notNumber = databaseNotGate;
+        xorNumber = databaseXorGate;
+        DisplayNumbers();
+    }
+
+    // Returns value of each gate
+    string ReturnValue(string data, string index)
+    {
+        string value = data.Substring(data.IndexOf(index) + index.Length);
+        if (value.Contains("|")) value = value.Remove(value.IndexOf("|"));
+        return value;
+    }
+
+    // Sends Local number of logic gates
+    IEnumerator SendLogicGateNumber(string symbol, string gateType) {
+        WWWForm LogicNumberForm = new WWWForm();
+        LogicNumberForm.AddField("usernamePOST", PlayerDetails.username);
+        LogicNumberForm.AddField("symbol", symbol);
+        LogicNumberForm.AddField("gateType", gateType);
+        WWW LogicNumberSend = new WWW(logicGateSend_Link, LogicNumberForm);
+        yield return LogicNumberSend;
+        
     }
 }

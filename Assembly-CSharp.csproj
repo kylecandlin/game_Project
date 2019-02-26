@@ -66,7 +66,6 @@
     <Compile Include="Assets\Scripts\Items\Items.cs" />
     <Compile Include="Assets\Scripts\Logic Gate\Interactable.cs" />
     <Compile Include="Assets\Scripts\Logic Gate\LogicGate.cs" />
-    <Compile Include="Assets\Scripts\Logic Gate\LogicGateUI.cs" />
     <Compile Include="Assets\Scripts\Logic Gate\Puzzle.cs" />
     <Compile Include="Assets\Scripts\Main Menu\Login.cs" />
     <Compile Include="Assets\Scripts\Main Menu\MainMenu.cs" />

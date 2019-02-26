@@ -32,10 +32,6 @@ public class Enemy : MonoBehaviour
     {
         FSM();
         IsDead();
-        if (Input.GetKey(KeyCode.G))
-        { // decreases enemy health on key press
-            EnemyHealth -= 20;
-        }
     }
     void OnTriggerStay2D(Collider2D other) // detects whent the player and the enemy collide
     {

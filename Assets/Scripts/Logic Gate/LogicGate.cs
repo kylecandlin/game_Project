@@ -9,7 +9,6 @@ public class LogicGate : MonoBehaviour
     public GameObject Player, HotBarUI;    
     public HotBar HotBarScript;
 
-
     // Update is called once per frame
     void Update()
     {   

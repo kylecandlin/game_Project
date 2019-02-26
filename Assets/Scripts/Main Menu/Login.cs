@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Login : MonoBehaviour {
+public class Login : MonoBehaviour
+{
     public string inputUsername; public string inputPassword; public int inputHealth; public int inputStamina; public int inputMana; public int inputMaxHealth; public int inputMaxStamina; public int inputMaxMana;
-    string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php", 
-    playerDownload_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/ItemsData.php";
+    string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php",
+    playerDownload_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/ItemsData.php",
+    login_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/checkGameUser.php";
     public InputField usernameInputField, passwordInputField;
     public GameObject PlayerDetailsObj, mainMenuCanvas;
     public PlayerDetails PlayerDetails;
@@ -33,30 +35,15 @@ public class Login : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
-    IEnumerator DataRecieve () {
-        coRoutineDone = false;
-        WWW itemsData = new WWW(playerDownload_Link);
-        yield return itemsData;
-        string itemsDataString = itemsData.text;
-        items = itemsDataString.Split(';');
-        coRoutineDone = true;
-        databaseAndGate = int.Parse(GetDataValue(items[0], "and_Gate:"));
-        databaseNotGate = int.Parse(GetDataValue(items[0], "not_Gate:"));
-        databaseXorGate = int.Parse(GetDataValue(items[0], "xor_Gate:"));
-       
-    }
-
-    string GetDataValue(string data, string index) {
+    string GetDataValue(string data, string index)
+    {
         string value = data.Substring(data.IndexOf(index) + index.Length);
-        if (value.Contains("|"))value = value.Remove(value.IndexOf("|"));
-            return value;                
+        if (value.Contains("|")) value = value.Remove(value.IndexOf("|"));
+        return value;
     }
 
     public void Update()
     {
-        try { StartCoroutine(DataRecieve()); }
-        catch { Debug.Log("database error"); }      
     }
 
     public void InsertData(string playerUsername, string playerPassword)
@@ -64,18 +51,62 @@ public class Login : MonoBehaviour {
         WWWForm insertForm = new WWWForm();
         insertForm.AddField("usernamePOST", playerUsername);
         insertForm.AddField("passwordPOST", playerPassword);
-        WWW filePush = new WWW(playerInsert_Link, insertForm);   
+        WWW filePush = new WWW(playerInsert_Link, insertForm);
     }
 
-    public void Clicked() {
-        inputUsername = usernameInputField.text;
-        inputPassword = passwordInputField.text;
-        InsertData(inputUsername, inputPassword);
-        PlayerDetails.UpdateLogin(inputUsername,inputPassword);
+    public void Clicked()
+    {
+        if (usernameInputField != null && passwordInputField != null) {
+            inputUsername = usernameInputField.text;
+            inputPassword = passwordInputField.text;
+            InsertData(inputUsername, inputPassword);
+            PlayerDetails.UpdateLogin(inputUsername, inputPassword);
+        }       
     }
 
     public void LoginBtnClick()
     {
+        inputUsername = usernameInputField.text;
+        inputPassword = passwordInputField.text;
+        PlayerDetails.UpdateLogin(inputUsername, inputPassword);
+        StartCoroutine(loginFormDownload());       
+
+    }
+
+    IEnumerator loginFormDownload() {
+        
+        string loginSuccess;
+        WWWForm insertForm2 = new WWWForm();
+        insertForm2.AddField("usernamePOST", usernameInputField.text);
+        insertForm2.AddField("passwordPOST", passwordInputField.text);
+
+        WWW loginForm = new WWW(login_Link, insertForm2);
+        yield return loginForm;
+        loginSuccess = loginForm.text.ToString();
+        print(loginSuccess);
+        if (loginForm.error == null)
+        {
+            Debug.Log("Connection Successful...");
+            print(loginForm.text.ToString());
+            if (loginSuccess == " 1")
+            {
+                Debug.Log("Successfull login");
+                mainMenuCanvas.SetActive(true);
+                this.gameObject.SetActive(false);
+            }
+            else if (loginSuccess == " 0")
+            {
+                Debug.Log("Failed");
+            }
+           
+        }
+        else
+        {
+            Debug.Log("Error...");
+        }
         
     }
+
+   
 }
+

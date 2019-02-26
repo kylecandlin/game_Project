@@ -38,7 +38,6 @@ public class Player_Attack : MonoBehaviour {
         float AngleRad = Mathf.Atan2(lookAt.y - playerObj.transform.position.y, lookAt.x - playerObj.transform.position.x);
 
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
-        Debug.Log(AngleDeg);
         
         
         if (Input.GetMouseButton(0))
@@ -72,10 +71,12 @@ public class Player_Attack : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("collision");
-        enemyScript = other.GetComponent<Enemy>();
-        damage = true;
-        Damage();
+        if (other.gameObject.layer == 9) {
+            Debug.Log("Particle Collision with Enemy");
+            enemyScript = other.GetComponent<Enemy>();
+            damage = true;
+            Damage();
+        }    
     }
 
     void Damage() {              

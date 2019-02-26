@@ -21,7 +21,7 @@ public class Player_Stats : MonoBehaviour
     // Database Variables
     private string inputUsername, inputPassword;
     private float inputHealth, inputStamina, inputMana;
-    string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php", 
+    string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php",
     update_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/updateStat.php";
 
     //Initialization
@@ -49,7 +49,7 @@ public class Player_Stats : MonoBehaviour
         DisplayStats();
 
         if (currentHealth <= 0 && godMode == false) {
-            Destroy(gameObject);
+           
         }
         inputHealth = currentHealth;
         inputStamina = currentStamina;
