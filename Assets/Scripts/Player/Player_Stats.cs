@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Player_Stats : MonoBehaviour
@@ -11,7 +12,8 @@ public class Player_Stats : MonoBehaviour
     public float currentMana; public float maxMana; public Slider manaBar; public Slider manaBarInventory;// Mana attributes 
     public float currentStamina; public float maxStamina; public Slider staminaBar; public Slider staminaBarInventory;// Stamina attributes  
     public float regenTime; public float tempTime; // Regeneration time 
-    public bool godMode;
+    public bool godMode, playerDieBool;
+    public AudioSource playerDie;
 
     // Scripts and foreign variables
     public Player_Basic_Move controlScript;
@@ -37,8 +39,10 @@ public class Player_Stats : MonoBehaviour
         currentHealth = maxHealth;
         currentMana = maxMana;
         currentStamina = maxStamina;
-        godMode = true;
+        godMode = false;
+        playerDieBool = true;
         DisplayStats();
+        playerDie = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,8 +52,8 @@ public class Player_Stats : MonoBehaviour
         controlScript = this.GetComponent<Player_Basic_Move>(); // Finding the script called Control   
         DisplayStats();
 
-        if (currentHealth <= 0 && godMode == false) {
-           
+        if (currentHealth <= 0 && godMode == false && playerDieBool) {
+            StartCoroutine(PlayerDeath());
         }
         inputHealth = currentHealth;
         inputStamina = currentStamina;
@@ -129,5 +133,12 @@ public class Player_Stats : MonoBehaviour
         updateForm.AddField("healthPOST", inputHealth.ToString());
         updateForm.AddField("staminaPOST", inputStamina.ToString());
         WWW filePush2 = new WWW(update_Link, updateForm);
+    }
+
+    IEnumerator PlayerDeath() {
+        playerDieBool = false;
+        playerDie.PlayOneShot(playerDie.clip);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("1", LoadSceneMode.Single);
     }
 }

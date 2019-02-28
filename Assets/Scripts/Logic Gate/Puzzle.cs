@@ -26,6 +26,10 @@ public class Puzzle : MonoBehaviour {
     public string selectedGateName, sceneName;
     private bool unlockedBool = false, completed = false;
     private int thresVal, moveUp;
+
+    // Sound Variables
+    public AudioClip puzzleCompleteClip, levelCompleteClip;
+    private AudioSource levelComplete, puzzleComplete;
     
 
     // Use this for initialization
@@ -37,6 +41,9 @@ public class Puzzle : MonoBehaviour {
         puzzle_r = GetComponent<SpriteRenderer>();
         output_r = output.GetComponent<SpriteRenderer>();
         gateArray = new string[LogicSlot.Length];
+        puzzleComplete = AddSound(puzzleCompleteClip, 0.8f, false);
+        levelComplete = AddSound(levelCompleteClip, 1f, false);
+
     }
 
     // Update is called once per frame
@@ -45,9 +52,6 @@ public class Puzzle : MonoBehaviour {
         thresVal = HotBar.selectedGateAmount;
         target = Player.transform.position; // opens target gameobject at player position and follows position
         this.transform.position = new Vector3(target.x, target.y + 2);
-
-
-
 
         for (int i = 0; i < LogicSlot.Length; i++) {
             LogicSlotScript = LogicSlot[i].GetComponent<LogicSlotScript>();
@@ -105,12 +109,7 @@ public class Puzzle : MonoBehaviour {
             // loops through logic slots to identify which one is clicked
             for (int i = 0; i < LogicSlot.Length; i++) {
                 if (hit && hit.collider.gameObject == LogicSlot[i] && completed == false && thresVal >0)
-                {
-
-
-                    
-
-
+                {                 
                     logicSlotImage_t = LogicSlot[i].transform.GetChild(0);
                     logicSlotImage_r = logicSlotImage_t.GetComponent<SpriteRenderer>();
                     if (gateArray[i] != HotBar.selectedGateName) {
@@ -134,16 +133,23 @@ public class Puzzle : MonoBehaviour {
     // waits for a given time and removes elements
     IEnumerator Success() {
         yield return new WaitForSeconds(0.5f);
-        output_r.color = Color.green;
-        yield return new WaitForSeconds(1.5f);
+        output_r.color = Color.green; // change output line to green
+
+        // Play Puzzle complete sound
+        puzzleComplete.PlayOneShot(puzzleComplete.clip);
+        yield return new WaitForSeconds(puzzleComplete.clip.length);
+
+        // hide puzzle elements
         puzzle_r.enabled = false;
         foreach (Renderer r in GetComponentsInChildren<Renderer>())
             r.enabled = false;
         interactable.SetActive(false);
-        Instantiate(greenExplosion, Player.transform.position, Quaternion.identity);
+
+        Instantiate(greenExplosion, Player.transform.position, Quaternion.identity); // Particle completion effect  
         if (nextSceneText != null) {
             yield return new WaitForSeconds(0.5f);
             playerUI.SetActive(false);
+            levelComplete.PlayOneShot(levelComplete.clip);
             Instantiate(nextSceneText, Player.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(2f);
         }
@@ -209,6 +215,14 @@ public class Puzzle : MonoBehaviour {
                 return false;
         }
         
+    }
+
+    public AudioSource AddSound(AudioClip clip, float volume, bool playAwake) {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.volume = volume;
+        newAudio.playOnAwake = playAwake;
+        return newAudio;
     }
 
 }

@@ -172,6 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076616c31ffe8c743b84eecd1d2bf188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputValues: 0000000000000000
+  nextSlotInput: 00000000
+  outputObj: {fileID: 0}
+  nextSlotObj: {fileID: 0}
 --- !u!114 &114969188883971826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,6 +194,7 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   interactableScript: {fileID: 0}
   HotBar: {fileID: 0}
+  LogicSlotScript: {fileID: 0}
   output: {fileID: 1013221221260468}
   greenExplosion: {fileID: 1201615419361770, guid: 21a2f306f6debc54fb45123e66bcc8bc,
     type: 2}
@@ -208,7 +213,8 @@ MonoBehaviour:
   gateArray: []
   selectedGateName: 
   sceneName: 
-  inputValues: 
+  puzzleCompleteClip: {fileID: 8300000, guid: c7fa5b85c391a8b4bb71ac5b1fb0724c, type: 3}
+  levelCompleteClip: {fileID: 8300000, guid: 47437b90ea2f6e5439fa8c32897cfec2, type: 3}
 --- !u!212 &212118605275634926
 SpriteRenderer:
   m_ObjectHideFlags: 1
