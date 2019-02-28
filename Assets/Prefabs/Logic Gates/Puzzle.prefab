@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4813630260615012}
   - component: {fileID: 212156651120862202}
   - component: {fileID: 61265145544512898}
+  - component: {fileID: 114452750255618914}
   m_Layer: 0
   m_Name: LogicSlot
   m_TagString: Untagged
@@ -160,6 +161,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.1, y: 5.99}
   m_EdgeRadius: 0
+--- !u!114 &114452750255618914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1579328698211776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 076616c31ffe8c743b84eecd1d2bf188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114969188883971826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,7 +190,6 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   interactableScript: {fileID: 0}
   HotBar: {fileID: 0}
-  target: {x: 0, y: 0, z: 0}
   output: {fileID: 1013221221260468}
   greenExplosion: {fileID: 1201615419361770, guid: 21a2f306f6debc54fb45123e66bcc8bc,
     type: 2}
@@ -190,7 +201,6 @@ MonoBehaviour:
   and: {fileID: 21300000, guid: 9766b2627ec29764dbb3e2cb134a7432, type: 3}
   xor: {fileID: 21300000, guid: 1549aeee3f3eaf94d88c82d26e824afd, type: 3}
   selectedGateImage: {fileID: 0}
-  logicSlotImage_r: {fileID: 0}
   puzzle_r: {fileID: 0}
   output_r: {fileID: 212252371493928686}
   unlockSquence:
@@ -198,9 +208,6 @@ MonoBehaviour:
   gateArray: []
   selectedGateName: 
   sceneName: 
-  unlockedBool: 0
-  completed: 0
-  moveUp: 10
   inputValues: 
 --- !u!212 &212118605275634926
 SpriteRenderer:
@@ -236,7 +243,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1874384631
   m_SortingLayer: 1
-  m_SortingOrder: 101
+  m_SortingOrder: 102
   m_Sprite: {fileID: 21300000, guid: 5153bf509aab4b44abc784081d2b112c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

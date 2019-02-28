@@ -7,7 +7,7 @@ public class HotBar : MonoBehaviour {
     // Database Variables
     string logicGateRecieve_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/ItemsData.php", 
         logicGateSend_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/UpdateGateGame.php";
-    public int databaseAndGate, databaseNotGate, databaseXorGate;
+    private int databaseAndGate, databaseNotGate, databaseXorGate;
     string[] items;
 
     // Player Details
@@ -16,11 +16,10 @@ public class HotBar : MonoBehaviour {
 
     // Local Logic Gate Variables
     public Text andText, xorText, notText; // UI display values
-    public int andNumber, xorNumber, notNumber, selectedGateAmount, // Number of Logic gates
-        prevAndNumber, prevXorNumber, prevNotNumber;
+    public int andNumber, xorNumber, notNumber, selectedGateAmount; // Number of Logic gates
     public Sprite not, and, xor, selectedGateImage; // Logic gate images
-    public string selectedGateName, databaseGateName; // last logic gate pressed
-    public AudioSource pickupSound; // Audio on pickup
+    public string selectedGateName, databaseGateName; // current selected gate and database version
+    private AudioSource pickupSound; // Audio on pickup
 
     private void Start()
     {
@@ -72,7 +71,7 @@ public class HotBar : MonoBehaviour {
             case ("NOT"):
                
                 notNumber += additionVal;
-                
+                databaseGateName = "not_Gate";
                 if (dAS == true) {
                     DetectAndSet("NOT");
                 }                
@@ -81,7 +80,7 @@ public class HotBar : MonoBehaviour {
             case ("AND"):
              
                 andNumber += additionVal;
-                
+                databaseGateName = "and_Gate";
                 if (dAS == true)
                 {
                     DetectAndSet("AND");
@@ -91,7 +90,7 @@ public class HotBar : MonoBehaviour {
             case ("XOR"):
              
                 xorNumber += additionVal;
-                
+                databaseGateName = "xor_Gate";
                 if (dAS == true)
                 {
                    DetectAndSet("XOR");
@@ -113,17 +112,14 @@ public class HotBar : MonoBehaviour {
         {
             case ("NOT"):
                 selectedGateAmount = notNumber;
-                databaseGateName = "not_Gate";
                 selectedGateImage = not;
                 break;
             case ("AND"):
                 selectedGateAmount = andNumber;
-                databaseGateName = "and_Gate";
                 selectedGateImage = and;
                 break;
             case ("XOR"):
                 selectedGateAmount = xorNumber;
-                databaseGateName = "xor_Gate";
                 selectedGateImage = xor;
                 break;
         }

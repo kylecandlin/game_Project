@@ -66,10 +66,13 @@ public class Login : MonoBehaviour
 
     public void LoginBtnClick()
     {
-        inputUsername = usernameInputField.text;
-        inputPassword = passwordInputField.text;
-        PlayerDetails.UpdateLogin(inputUsername, inputPassword);
-        StartCoroutine(loginFormDownload());       
+        if (usernameInputField != null && passwordInputField != null)
+        {
+            inputUsername = usernameInputField.text;
+            inputPassword = passwordInputField.text;
+            PlayerDetails.UpdateLogin(inputUsername, inputPassword);
+            StartCoroutine(loginFormDownload());
+        }
 
     }
 
