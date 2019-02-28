@@ -46,6 +46,56 @@ public class Puzzle : MonoBehaviour {
         target = Player.transform.position; // opens target gameobject at player position and follows position
         this.transform.position = new Vector3(target.x, target.y + 2);
 
+
+
+
+        for (int i = 0; i < LogicSlot.Length; i++) {
+            LogicSlotScript = LogicSlot[i].GetComponent<LogicSlotScript>();
+            if (LogicGateLogic((int)LogicSlotScript.inputValues[0], (int)LogicSlotScript.inputValues[1], i))
+            {
+                if (LogicSlotScript.outputObj != null)
+                {
+                    LogicSlotScript.outputObj.GetComponent<SpriteRenderer>().color = Color.green;
+                }
+                if (LogicSlotScript.nextSlotObj != null)
+                {
+                    // decide whether to change top or bottom
+                    if ((int)LogicSlotScript.nextSlotInput[0] == 0)
+                    { // change top
+                        LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(true, LogicSlotScript.Values.one, false, LogicSlotScript.Values.one);
+                    }
+                    if ((int)LogicSlotScript.nextSlotInput[0] == 1)
+                    { // change bottom
+                        LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(false, LogicSlotScript.Values.one, true, LogicSlotScript.Values.one);
+                    }
+                }
+
+            }
+            else if (LogicGateLogic((int)LogicSlotScript.inputValues[0], (int)LogicSlotScript.inputValues[1], i) == false)
+            {
+                if (LogicSlotScript.outputObj != null)
+                {
+                    LogicSlotScript.outputObj.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                if (LogicSlotScript.nextSlotObj != null)
+                {
+                    // decide whether to change top or bottom
+                    if ((int)LogicSlotScript.nextSlotInput[0] == 0)
+                    { // change top
+                        LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(true, LogicSlotScript.Values.zero, false, LogicSlotScript.Values.zero);
+                    }
+                    if ((int)LogicSlotScript.nextSlotInput[0] == 1)
+                    { // change bottom
+                        LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(false, LogicSlotScript.Values.zero, true, LogicSlotScript.Values.zero);
+                    }
+                }
+            }
+            else {
+                LogicSlotScript.outputObj.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+        }
+
+
         // Mouse click
         if (Input.GetMouseButtonDown(0))
         {
@@ -58,41 +108,7 @@ public class Puzzle : MonoBehaviour {
                 {
 
 
-                    LogicSlotScript = LogicSlot[i].GetComponent<LogicSlotScript>();
-                    if (LogicGateLogic((int)LogicSlotScript.inputValues[0], (int)LogicSlotScript.inputValues[1])) {
-                        if (LogicSlotScript.outputObj != null) {
-                            LogicSlotScript.outputObj.GetComponent<SpriteRenderer>().color = Color.green;
-                        }
-                        if (LogicSlotScript.nextSlotObj != null) {
-                            // decide whether to change top or bottom
-                            if ((int)LogicSlotScript.nextSlotInput[0] == 0)
-                            { // change top
-                                LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(true, LogicSlotScript.Values.one, false, LogicSlotScript.Values.one);
-                            }
-                            if ((int)LogicSlotScript.nextSlotInput[0] == 1)
-                            { // change bottom
-                                LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(false, LogicSlotScript.Values.one, true, LogicSlotScript.Values.one);
-                            }
-                        }
-                        
-                    }
-                    else if (LogicGateLogic((int)LogicSlotScript.inputValues[0], (int)LogicSlotScript.inputValues[1]) == false) {
-                        if (LogicSlotScript.outputObj != null) {
-                            LogicSlotScript.outputObj.GetComponent<SpriteRenderer>().color = Color.red;
-                        }                       
-                        if (LogicSlotScript.nextSlotObj != null)
-                        {
-                            // decide whether to change top or bottom
-                            if ((int)LogicSlotScript.nextSlotInput[0] == 0)
-                            { // change top
-                                LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(true, LogicSlotScript.Values.zero, false, LogicSlotScript.Values.zero);
-                            }
-                            if ((int)LogicSlotScript.nextSlotInput[0] == 1)
-                            { // change bottom
-                                LogicSlotScript.nextSlotObj.GetComponent<LogicSlotScript>().ChangeInputs(false, LogicSlotScript.Values.zero, true, LogicSlotScript.Values.zero);
-                            }
-                        }
-                    }
+                    
 
 
                     logicSlotImage_t = LogicSlot[i].transform.GetChild(0);
@@ -163,8 +179,8 @@ public class Puzzle : MonoBehaviour {
         }     
     }
 
-    public bool LogicGateLogic(int topInput, int bottomInput) {
-        switch (HotBar.selectedGateName) {
+    public bool LogicGateLogic(int topInput, int bottomInput, int i) {
+        switch (gateArray[i]) {
             case ("NOT"):
                 if (topInput == 0 && bottomInput == 3 || topInput == 3 && bottomInput == 0) {
                     return true;
@@ -189,8 +205,10 @@ public class Puzzle : MonoBehaviour {
                 else {
                     return false;
                 }
+            default:
+                return false;
         }
-        return true;
+        
     }
 
 }
