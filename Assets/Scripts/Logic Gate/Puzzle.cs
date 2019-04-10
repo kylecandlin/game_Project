@@ -112,13 +112,16 @@ public class Puzzle : MonoBehaviour {
                 {                 
                     logicSlotImage_t = LogicSlot[i].transform.GetChild(0);
                     logicSlotImage_r = logicSlotImage_t.GetComponent<SpriteRenderer>();
-                    if (gateArray[i] != HotBar.selectedGateName) {
+                    if (gateArray[i] != HotBar.selectedGateName && gateArray[i] != null) {
                         HotBar.UpdateNumber(1, gateArray[i], false);
                         HotBar.UpdateNumber(-1, HotBar.selectedGateName, true);
                                                           
                         Debug.Log("andnumber    " + HotBar.andNumber+"xornumber " + HotBar.xorNumber+"notnumber " + HotBar.notNumber);
                         Debug.Log("Gate Array" + gateArray[i]);
-                    }                   
+                    }     
+                    else if (gateArray[i] == null) {
+                        HotBar.UpdateNumber(-1, HotBar.selectedGateName, true);
+                    }
                     Debug.Log("selected gate amount " + HotBar.selectedGateAmount);
                     logicSlotImage_r.sprite = HotBar.selectedGateImage;   
                     gateArray[i] = HotBar.selectedGateName;

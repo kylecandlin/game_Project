@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ba346235929bb478c2f77d4e5d19bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: test
-  password: test
+  username: 
+  password: 

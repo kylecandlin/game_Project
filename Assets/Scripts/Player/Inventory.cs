@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-    // test
     public Transform selectedItem, selectedSlot, orginalSlot;
-    public bool canGrab = false;
+    public bool canGrab = false, selected = false;
 
     public GameObject Tabs, InventoryTab, PlayerTab, SettingsTab;
     public GameObject Panels, InventoryPanel, PlayerPanel, SettingsPanel;
@@ -20,21 +19,18 @@ public class Inventory : MonoBehaviour {
     private InventorySlot[] slots;
 
     private GameObject go;
-    public GameObject item1;
-    private GameObject item2;
+    public GameObject item1, item2, item3, currentItem;
 
     private Camera cam;
     private bool displaying;
     private RectTransform rect;
-    public float x;
-    public float y;
+    public float x, y;
 
     public int totalGold;
     public Text textGold;
 
     public int inventorySize;
-    private int maxCol;
-    private int maxRow;
+    private int maxCol, maxRow;
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +38,7 @@ public class Inventory : MonoBehaviour {
         x = 30;
         maxCol = 10;
         maxRow = 3;
-        inventorySize = 29;
+        inventorySize = 30;
         cam = Camera.main;
         Tabs.SetActive(false);
         Panels.SetActive(false);
@@ -53,6 +49,14 @@ public class Inventory : MonoBehaviour {
         rect = InventoryBackground.GetComponent<RectTransform>();
         PopulateInventorySlots();
         totalGold = 0;
+        currentItem = null;
+        // give player 2 health potions
+        item2 = Instantiate(item1, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        item3 = Instantiate(item1, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        item2.transform.SetParent(slotLocation[0].transform, false);
+        item3.transform.SetParent(slotLocation[1].transform, false);
+        item2.name = "item2";
+        item3.name = "item3";
     }
 	
 	// Update is called once per frame
@@ -78,8 +82,6 @@ public class Inventory : MonoBehaviour {
             InventoryBackground.SetActive(displaying);
             Tabs.SetActive(displaying);
             Panels.SetActive(displaying);
-            item2 = Instantiate(item1, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            item2.transform.SetParent(slotLocation[23].transform, false);
         }
     }
   
@@ -122,6 +124,10 @@ public class Inventory : MonoBehaviour {
         }
        
 
+    }
+
+    public void SlotCalled(int position) {
+        currentItem.transform.SetParent(slotLocation[position].transform, false);
     }
 
     // quits application

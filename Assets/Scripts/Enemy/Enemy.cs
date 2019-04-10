@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     // Enemy Stats
     public float speed, attackDis, EnemyHealth;
     public GameObject[] itemDrops;
+    public bool freezeMotion;
 
     // Use this for initialization
     void Start()
@@ -30,7 +31,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FSM();
+        if (freezeMotion == false) {
+            FSM();
+        }        
         IsDead();
     }
     void OnTriggerStay2D(Collider2D other) // detects whent the player and the enemy collide

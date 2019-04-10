@@ -58,7 +58,7 @@ public class HotBar : MonoBehaviour {
     // Changes number of logic gates
     public void UpdateNumber(int additionVal, string gateName, bool dAS) {
        
-        string updateSymbol = null; // symbol for databse
+        string updateSymbol = null; // symbol for database
 
         // conversions from addition value to symbol
         if (additionVal > 0) { updateSymbol = "+"; }

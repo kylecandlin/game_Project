@@ -50,7 +50,6 @@ public class Player_Basic_Move : MonoBehaviour
         SlopeAngle();
         Walk();
         Jump();
-        OtherControls();    
     }
 
     // Applies Walk motions
@@ -117,18 +116,6 @@ public class Player_Basic_Move : MonoBehaviour
             angle = Mathf.Abs(Mathf.Atan2(hits[1].normal.x, hits[1].normal.y) * Mathf.Rad2Deg); // Calculate angle            
         }
         return angle; // Return Angle float value
-    }
-
-    // Other player controls
-    void OtherControls()
-    {
-        // List of other Controls
-        if (Input.GetKeyDown(KeyCode.X)) {
-            Player_Stats.AlterStats(-10, 0, -10);
-        }
-        if (Input.GetKeyDown(KeyCode.P)) {
-            Instantiate(Gold, new Vector3(0, 0, 0), Quaternion.identity);
-        }
     }
 
 }

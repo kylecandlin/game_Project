@@ -9,7 +9,7 @@ public class Player_Stats : MonoBehaviour
 {
     // Variables
     public float currentHealth; public float maxHealth; public Slider healthBar; public Slider healthBarInventory; // Health attributes   
-    public float currentMana; public float maxMana; public Slider manaBar; public Slider manaBarInventory;// Mana attributes 
+    public float currentEnergy; public float maxEnergy; public Slider energyBar; public Slider energyBarInventory;// Mana attributes 
     public float currentStamina; public float maxStamina; public Slider staminaBar; public Slider staminaBarInventory;// Stamina attributes  
     public float regenTime; public float tempTime; // Regeneration time 
     public bool godMode, playerDieBool;
@@ -17,8 +17,11 @@ public class Player_Stats : MonoBehaviour
 
     // Scripts and foreign variables
     public Player_Basic_Move controlScript;
-    public GameObject PlayerDetailsObj;
+    public GameObject PlayerDetailsObj, InventoryObj;
     public PlayerDetails PlayerDetails;
+    public Gold Gold;
+    public Inventory Inventory;
+    public Text textHealth, textStamina, textEnergy, username;
 
     // Database Variables
     private string inputUsername, inputPassword;
@@ -30,14 +33,15 @@ public class Player_Stats : MonoBehaviour
     void Start()
     {
         PlayerDetails = PlayerDetailsObj.GetComponent<PlayerDetails>();
-
+        InventoryObj = GameObject.Find("InventoryMenu");
+        Inventory = InventoryObj.GetComponent<Inventory>();
         regenTime = 0.05f; // time to regenerate stats (one increment)
         tempTime = regenTime;
         maxHealth = 100;
-        maxMana = 80;
+        maxEnergy = 80;
         maxStamina = 300;
         currentHealth = maxHealth;
-        currentMana = maxMana;
+        currentEnergy = maxEnergy;
         currentStamina = maxStamina;
         godMode = false;
         playerDieBool = true;
@@ -58,6 +62,11 @@ public class Player_Stats : MonoBehaviour
         inputHealth = currentHealth;
         inputStamina = currentStamina;
         InsertData();
+        // update player details in menu
+        textHealth.text = (int)currentHealth+"/" +maxHealth;
+        textStamina.text = (int)currentStamina + "/" + maxStamina;
+        textEnergy.text = (int)currentEnergy+"/"+maxEnergy;
+        username.text = PlayerDetails.username;
     }
 
     public void Regeneration(float healthRegen, float staminaRegen, float manaRegen, bool active)
@@ -75,7 +84,7 @@ public class Player_Stats : MonoBehaviour
     void DisplayStats()
     {
         healthBar.value = healthBarInventory.value = currentHealth / maxHealth;
-        manaBar.value = manaBarInventory.value = currentMana / maxMana;
+        energyBar.value = energyBarInventory.value = currentEnergy / maxEnergy;
         staminaBar.value = staminaBarInventory.value = currentStamina / maxStamina;
     }
 
@@ -96,17 +105,17 @@ public class Player_Stats : MonoBehaviour
         }
 
         // Mana change 
-        if (currentMana + manaChange > maxMana)
+        if (currentEnergy + manaChange > maxEnergy)
         {
-            currentMana = maxMana;
+            currentEnergy = maxEnergy;
         }
-        if (currentMana + manaChange < 0)
+        if (currentEnergy + manaChange < 0)
         {
-            currentMana = 0;
+            currentEnergy = 0;
         }
-        if (currentMana + manaChange <= maxMana && currentMana + manaChange >= 0)
+        if (currentEnergy + manaChange <= maxEnergy && currentEnergy + manaChange >= 0)
         {
-            currentMana += manaChange;
+            currentEnergy += manaChange;
         }
 
         // Stamina change 
@@ -140,5 +149,24 @@ public class Player_Stats : MonoBehaviour
         playerDie.PlayOneShot(playerDie.clip);
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("1", LoadSceneMode.Single);
+    }
+
+    // upgrade max health stat
+    public void HealthUpgrade() {        
+        if (Inventory.totalGold >= 50) {
+            Inventory.totalGold -= 50;
+            if (maxHealth <= 140) {
+                maxHealth += 10;
+            }            
+        }        
+    }
+
+    public void StaminaUpgrade() {
+        if (Inventory.totalGold >= 25) {
+            Inventory.totalGold -= 25;
+            if (maxStamina <= 380) {
+                maxStamina += 20;
+            }
+        }
     }
 }

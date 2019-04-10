@@ -7,6 +7,15 @@ public class InventorySlot : MonoBehaviour {
 
     public Transform inventoryTransform;
     public Inventory Inventory;
+    public GameObject[] slot_Location;
+    public GameObject inventoryMenu, useBtnPrefab, useBtn;
+    public GameObject test;
+    public Button button;
+    private bool child = false;
+    private GameObject itemlocal;
+
+    public Player_Stats PlayerStats;
+    public GameObject Player;
 
     void OnMouseEnter()
     {
@@ -18,50 +27,61 @@ public class InventorySlot : MonoBehaviour {
         inventoryTransform.GetComponent<Inventory>().selectedSlot = null;
     }
 
-
-    public Inventory inventoryScript;
-    public GameObject[] slot_Location;
-    public GameObject inventoryMenu;
-    private GameObject currentItem;
-    public GameObject test;
-    public Button button;
-    private bool child = false;
-    private GameObject item2;
-
     // Use this for initialization
     void Start () {
+        Player = GameObject.Find("Player");
+        PlayerStats = Player.GetComponent<Player_Stats>();
+        inventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");
+        Inventory = inventoryMenu.GetComponent<Inventory>();
         child = false;
-        button.onClick.AddListener(ButtonClicked);     
-
+        button.onClick.AddListener(ButtonClicked);   
     }
 	
 	// Update is called once per frame
 	void Update () {
-        item2 = Instantiate(test, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        item2.transform.SetParent(inventoryScript.slotLocation[2].transform, false);
         if (transform.childCount > 0)
         {
             child = true;
-            currentItem = transform.GetChild(0).gameObject;
-            // Debug.Log("child: " + currentItem + "  child count: "+transform.childCount);
         }
         else {
             child = false;
-          //  Debug.Log("slot empty:  " + transform.childCount);
+            button.GetComponent<Image>().color = button.colors.normalColor;
+            Destroy(useBtn);
         }            
     }
 
     void ButtonClicked() {
-        Debug.Log("pressed");
-        if (child) {
+        Debug.Log("pressed"+ Inventory.currentItem);
+        if (Inventory.currentItem != null && !child) {
+            Inventory.SlotCalled(int.Parse(this.name) - 1);
+        }
+        if (child && Inventory.selected == false)
+        {
+            Inventory.selected = true;
+            button.GetComponent<Image>().color = Color.blue;
             Debug.Log("child status: " + child);
-            
-            //Destroy(currentItem);
-            //currentItem = Inventory.slotLocation[1];
+            Inventory.currentItem = this.transform.GetChild(0).gameObject;
+            Debug.Log("slot  " + Inventory.currentItem);
+            if (useBtn == null) {
+                useBtn = Instantiate(useBtnPrefab, this.transform.position, Quaternion.identity) as GameObject;
+                useBtn.transform.SetParent(Inventory.InventoryPanel.transform, false);
+                useBtn.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 15, 0);
+            }            
+        }
+        else {
+            Inventory.currentItem = null;
+            Inventory.selected = false;
+        }
+    }
 
-            
-        }        
-    } 
-        
-
+    // on use button pressed
+    public void UseButtonClicked() {
+        // recall foreign scripts for reference
+        inventoryMenu = GameObject.FindGameObjectWithTag("InventoryMenu");
+        Inventory = inventoryMenu.GetComponent<Inventory>();
+        Player = GameObject.Find("Player");
+        PlayerStats = Player.GetComponent<Player_Stats>();
+        PlayerStats.AlterStats(PlayerStats.maxHealth,0,0); // health poition alterations
+        Destroy(Inventory.currentItem.transform.gameObject); // removes item once used
+    }
 }

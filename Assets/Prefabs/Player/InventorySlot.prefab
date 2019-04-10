@@ -13,15 +13,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.r
-      value: 0.7735849
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.g
-      value: 0.7735849
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Color.b
-      value: 0.7735849
+      value: 0.8207547
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.x
@@ -102,6 +102,23 @@ Prefab:
       value: 
       objectReference: {fileID: 1374924786509610, guid: 90c572cf92b1d5945a5bd6b25d2399a3,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: useBtnPrefab
+      value: 
+      objectReference: {fileID: 1156699952011130, guid: c055961681028254c83f72242883b1ea,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1301859946115912}
@@ -144,7 +161,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -178,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
+  m_Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -204,10 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0d909c78b4c724d8c52df6737d2d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryScript: {fileID: 0}
+  inventoryTransform: {fileID: 0}
+  Inventory: {fileID: 0}
   slot_Location: []
   inventoryMenu: {fileID: 1374924786509610, guid: 90c572cf92b1d5945a5bd6b25d2399a3,
     type: 2}
+  useBtnPrefab: {fileID: 1156699952011130, guid: c055961681028254c83f72242883b1ea,
+    type: 2}
+  useBtn: {fileID: 0}
   test: {fileID: 1528462225612370, guid: 55f442044b53922449d63a30eba35dda, type: 2}
   button: {fileID: 114401142669215324}
 --- !u!222 &222190100719812908
