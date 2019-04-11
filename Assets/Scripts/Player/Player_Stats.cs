@@ -38,7 +38,7 @@ public class Player_Stats : MonoBehaviour
         regenTime = 0.05f; // time to regenerate stats (one increment)
         tempTime = regenTime;
         maxHealth = 100;
-        maxEnergy = 80;
+        maxEnergy = 200;
         maxStamina = 300;
         currentHealth = maxHealth;
         currentEnergy = maxEnergy;

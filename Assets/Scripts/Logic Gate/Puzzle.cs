@@ -108,26 +108,44 @@ public class Puzzle : MonoBehaviour {
            
             // loops through logic slots to identify which one is clicked
             for (int i = 0; i < LogicSlot.Length; i++) {
-                if (hit && hit.collider.gameObject == LogicSlot[i] && completed == false && thresVal >0)
-                {                 
+                if (hit && hit.collider.gameObject == LogicSlot[i] && completed == false)
+                {                  
+                    // set variables for specific slot
                     logicSlotImage_t = LogicSlot[i].transform.GetChild(0);
                     logicSlotImage_r = logicSlotImage_t.GetComponent<SpriteRenderer>();
-                    if (gateArray[i] != HotBar.selectedGateName && gateArray[i] != null) {
+                    Debug.Log("selected name: "+ HotBar.selectedGateName);                    
+
+                    if (gateArray[i] != HotBar.selectedGateName && gateArray[i] != null && thresVal > 0)
+                    {
                         HotBar.UpdateNumber(1, gateArray[i], false);
                         HotBar.UpdateNumber(-1, HotBar.selectedGateName, true);
-                                                          
-                        Debug.Log("andnumber    " + HotBar.andNumber+"xornumber " + HotBar.xorNumber+"notnumber " + HotBar.notNumber);
+                        Debug.Log("andnumber    " + HotBar.andNumber + "xornumber " + HotBar.xorNumber + "notnumber " + HotBar.notNumber);
                         Debug.Log("Gate Array" + gateArray[i]);
-                    }     
-                    else if (gateArray[i] == null) {
-                        HotBar.UpdateNumber(-1, HotBar.selectedGateName, true);
+                        logicSlotImage_r.sprite = HotBar.selectedGateImage;
+                        gateArray[i] = HotBar.selectedGateName;
                     }
-                    Debug.Log("selected gate amount " + HotBar.selectedGateAmount);
-                    logicSlotImage_r.sprite = HotBar.selectedGateImage;   
-                    gateArray[i] = HotBar.selectedGateName;
+
+                    else if (gateArray[i] == null && thresVal > 0)
+                    {
+                        HotBar.UpdateNumber(-1, HotBar.selectedGateName, true);
+                        logicSlotImage_r.sprite = HotBar.selectedGateImage;
+                        gateArray[i] = HotBar.selectedGateName;
+                    }
+                    
+                    if (HotBar.selectedGateName == null && gateArray[i] != null)
+                    {
+                        Debug.Log("give back ");
+                        HotBar.UpdateNumber(1, gateArray[i], false);
+                        gateArray[i] = null;
+                        logicSlotImage_r.sprite = null;
+                        HotBar.selectedGateImage = null;
+                    }
+                    Debug.Log("selected gate amount " + HotBar.selectedGateAmount);                    
+                    
                     if (Enumerable.SequenceEqual(unlockSquence, gateArray)) {
                         Unlocked();
-                    }                               
+                    }
+                    HotBar.selectedGateName = null;
                 }
             }
         }

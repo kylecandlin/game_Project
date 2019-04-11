@@ -45,7 +45,7 @@ public class Player_Basic_Move : MonoBehaviour
         Player_Stats_CurrentStamina = Player_Stats.currentStamina;
 
         MainCamera.orthographicSize = cameraZoom; // sets camera zoom
-        Player_Stats.Regeneration(0.2f, 1, 1, true); // Base regeration
+        Player_Stats.Regeneration(0.2f, 1, 0.7f, true); // Base regeration
 
         SlopeAngle();
         Walk();

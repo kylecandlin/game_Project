@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 856
+  controlID: 8259
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 857
+  controlID: 8260
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 858
+  controlID: 8261
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,8 +169,8 @@ MonoBehaviour:
     y: 0
     width: 289
     height: 458
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -203,9 +203,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 58310000
+    m_SelectedIDs: bc280000
     m_LastClickedID: 0
-    m_ExpandedIDs: 1ec8ffffe4fbffff00000000
+    m_ExpandedIDs: 7abcffff86c2ffffe8d1ffffc4d6ffffe4fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -288,9 +288,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 487.6736, y: 250.7465, z: -1.1875}
+    m_Target: {x: 59.82864, y: 8.307271, z: 2.9882812}
     speed: 2
-    m_Value: {x: 487.6736, y: 250.7465, z: -1.1875}
+    m_Value: {x: 59.82864, y: 8.307271, z: 2.9882812}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -322,9 +322,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 438.70007
+    m_Target: 17.392101
     speed: 2
-    m_Value: 438.70007
+    m_Value: 17.392101
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -488,20 +488,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/Player
   m_ViewMode: 1
   m_StartGridSize: 71
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/Player
   m_LastFoldersGridSize: 71
   m_LastProjectPath: C:\Users\Natha\OneDrive\Documents\GitHub\game_Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1189}
-    m_SelectedIDs: 422b0000
-    m_LastClickedID: 11074
-    m_ExpandedIDs: 000000001a2a0000142b0000402c0000242d00004c2e00001a2f0000482f00003830000050320000a0320000e2330000fe340000ca350000263600004a360000a6360000d4360000f837000020400000224000002440000026400000284000002a4000002c40000000ca9a3b
+    scrollPos: {x: 0, y: 1285}
+    m_SelectedIDs: d8310000
+    m_LastClickedID: 12760
+    m_ExpandedIDs: 000000001a2a0000142b0000402c0000242d00004c2e00001a2f0000482f00003830000050320000a0320000e2330000fe340000ca350000263600004a360000a6360000d4360000f8370000284000002a4000002c4000002e40000030400000324000003440000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -529,7 +529,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001a2a0000142b0000402c0000242d00004c2e00001a2f0000482f00003830000050320000a0320000e2330000fe340000ca350000263600004a360000a6360000d4360000f837000020400000224000002440000026400000284000002a4000002c400000
+    m_ExpandedIDs: 000000001a2a0000142b0000402c0000242d00004c2e00001a2f0000482f00003830000050320000a0320000e2330000fe340000ca350000263600004a360000a6360000d4360000f8370000284000002a4000002c4000002e40000030400000324000003440000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -554,9 +554,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 58310000
-    m_LastClickedInstanceID: 12632
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: bc280000
+    m_LastClickedInstanceID: 10428
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000da310000ae5800002a15faff442c00000e2b0000f42a0000d22c0000182d0000362d0000a2300000c27500002c380000443800003c380000f22a0000085d00003c5f0000b25d0000e65f0000845e0000a85e00002c2a0000fcaafbffb05700000a5b0000d65f0000bc3a0000223a00006c300000ea390000000000003e360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -583,7 +583,7 @@ MonoBehaviour:
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 71
-  m_DirectoriesAreaWidth: 167
+  m_DirectoriesAreaWidth: 110
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
