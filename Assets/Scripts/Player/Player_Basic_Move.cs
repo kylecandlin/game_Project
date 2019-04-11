@@ -8,8 +8,9 @@ public class Player_Basic_Move : MonoBehaviour
     // Foreign Scripts and Variables
     public Player_Stats Player_Stats;
     public float Player_Stats_CurrentStamina;
+    public Animator Player_a;
 
-    public GameObject Gold;
+    public GameObject Gold, playerBody;
 
     // Respectively: Value for walking, run multiplier for walkspeed, 
     // speed of movement, jump force, y update component
@@ -26,9 +27,10 @@ public class Player_Basic_Move : MonoBehaviour
     public float cameraZoom;
 
     void Start()
-    {
+    {        
         // Assign Initial values and parameters  
         rb2d = GetComponent<Rigidbody2D>(); // Assign 2D Rigid Body
+        Player_a = this.GetComponent<Animator>();
         MainCamera = Camera.main;
         MainCamera.enabled = true;
         cameraZoom = 7;
@@ -59,9 +61,11 @@ public class Player_Basic_Move : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Player_Stats_CurrentStamina > 0f) {
             Player_Stats.AlterStats(0, -1, 0);
             moveSpeed = walkSpeed * runSpeedMultiplier;
+            Player_a.SetBool("isRunning", true);
         }
         else {
             moveSpeed = walkSpeed; // if the player isnt sprinting set to walkspeed
+            Player_a.SetBool("isRunning", false);
         }
 
         float moveHorizontal = Input.GetAxis("Horizontal"); // recieve input
@@ -69,10 +73,22 @@ public class Player_Basic_Move : MonoBehaviour
         Vector2 movement_y = new Vector2(0, y); // create movement vector y
         rb2d.position += movement_x * Time.deltaTime; // Horizontal player movement application
         rb2d.AddForce(movement_y, ForceMode2D.Impulse); // Vertical player movement application
+
+        if (Input.GetMouseButton(0) == false) {
+            if (moveHorizontal > 0)
+            {
+                playerBody.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            if (moveHorizontal < 0)
+            {
+                playerBody.transform.rotation = Quaternion.Euler(0, -180, 0);
+            }
+        }      
     }
 
     // Applies Jump motions
     void Jump() {
+        
         y = 0; // Resets y component
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -81,6 +97,7 @@ public class Player_Basic_Move : MonoBehaviour
                 rb2d.velocity = new Vector2(0, 0); // Resets players x velocity
                 y += jumpForce; // Applies Jump force to the y component 
                 canDoubleJump = true;
+               
             }
 
             else if (canDoubleJump) // Airbourne Jump
@@ -88,7 +105,15 @@ public class Player_Basic_Move : MonoBehaviour
                 canDoubleJump = false;
                 rb2d.velocity = new Vector2(0, 0);
                 y += jumpForce;
+                
             }
+        }
+        if (IsGrounded() == false)
+        {
+            Player_a.SetBool("isJump", true);
+        }
+        else {
+            Player_a.SetBool("isJump", false);
         }
     }
 

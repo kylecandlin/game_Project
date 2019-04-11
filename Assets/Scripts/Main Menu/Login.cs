@@ -76,6 +76,12 @@ public class Login : MonoBehaviour
 
     }
 
+    public void PlayGuestBtn() {
+        PlayerDetails.UpdateLogin("Guest", "");
+        mainMenuCanvas.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
     IEnumerator loginFormDownload() {
         
         string loginSuccess;

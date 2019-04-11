@@ -17,14 +17,16 @@ public class Player_Attack : MonoBehaviour {
 
     // Foreign Scripts and variables
     public Player_Stats Player_Stats;
+    public Player_Basic_Move Player_Basic_Move;
 
     // Use this for initialization
     void Start () {
         player = GameObject.Find("Player");
         Player_Stats = player.GetComponent<Player_Stats>();
+        Player_Basic_Move = player.GetComponent<Player_Basic_Move>();
         attackSound.Play();
         attackSound.Pause();
-        attackSound.volume = 0.2f;
+        attackSound.volume = 0.03f;
         playerObj_s = playerBody.GetComponent<SpriteRenderer>();
         coolDownTime = 10;
         coolDownCompleted = true;
@@ -33,8 +35,7 @@ public class Player_Attack : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        
+    void LateUpdate() {
         Vector3 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 lookAt = mouseScreenPosition;
@@ -43,14 +44,14 @@ public class Player_Attack : MonoBehaviour {
 
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
 
-        Debug.Log("energy "+ Player_Stats.currentEnergy);
         if (Input.GetMouseButtonDown(0)) {
             mainCoolDown = true;
             Player_Stats.AlterStats(0,0,-10);
         }
         if (Input.GetMouseButton(0) && Player_Stats.currentEnergy > 0f && mainCoolDown == true)
         {
-            Player_Stats.AlterStats(0,0,-1);
+            Player_Basic_Move.Player_a.enabled = false;
+            Player_Stats.AlterStats(0,0,-1); 
             attackSound.UnPause();
             if (AngleDeg <= 90 && AngleDeg >= -90)
             {
@@ -65,6 +66,7 @@ public class Player_Attack : MonoBehaviour {
         }
         else if (!Input.GetMouseButton(0) || Player_Stats.currentEnergy<=0f)
         {
+            Player_Basic_Move.Player_a.enabled = true;
             attackSound.Pause();
             part.Stop();
             mainCoolDown = false;

@@ -25,7 +25,7 @@ public class Player_Stats : MonoBehaviour
 
     // Database Variables
     private string inputUsername, inputPassword;
-    private float inputHealth, inputStamina, inputMana;
+    private float inputHealth, inputStamina, inputEnergy;
     string playerInsert_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/InsertUser.php",
     update_Link = "http://part1-17.wbs.uni.worc.ac.uk/Companion/updateStat.php";
 
@@ -88,7 +88,7 @@ public class Player_Stats : MonoBehaviour
         staminaBar.value = staminaBarInventory.value = currentStamina / maxStamina;
     }
 
-    public void AlterStats(float healthChange, float staminaChange, float manaChange)
+    public void AlterStats(float healthChange, float staminaChange, float energyChange)
     {
         // Health change
         if (currentHealth + healthChange > maxHealth)
@@ -105,17 +105,17 @@ public class Player_Stats : MonoBehaviour
         }
 
         // Mana change 
-        if (currentEnergy + manaChange > maxEnergy)
+        if (currentEnergy + energyChange > maxEnergy)
         {
             currentEnergy = maxEnergy;
         }
-        if (currentEnergy + manaChange < 0)
+        if (currentEnergy + energyChange < 0)
         {
             currentEnergy = 0;
         }
-        if (currentEnergy + manaChange <= maxEnergy && currentEnergy + manaChange >= 0)
+        if (currentEnergy + energyChange <= maxEnergy && currentEnergy + energyChange >= 0)
         {
-            currentEnergy += manaChange;
+            currentEnergy += energyChange;
         }
 
         // Stamina change 
@@ -145,10 +145,11 @@ public class Player_Stats : MonoBehaviour
     }
 
     IEnumerator PlayerDeath() {
+        Scene scene = SceneManager.GetActiveScene();
         playerDieBool = false;
         playerDie.PlayOneShot(playerDie.clip);
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("1", LoadSceneMode.Single);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(scene.name, LoadSceneMode.Single);
     }
 
     // upgrade max health stat

@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
     public Transform targetpos;
     public Player_Stats statsScript;
+    public Vector3 startPos;
 
     // Enemy Stats
     public float speed, attackDis, EnemyHealth;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        startPos = this.transform.position;
         Player = GameObject.Find("Player");
         statsScript = Player.GetComponent<Player_Stats>();
         targetpos = Player.GetComponent<Transform>();

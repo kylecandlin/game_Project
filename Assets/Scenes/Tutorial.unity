@@ -542,6 +542,10 @@ Prefab:
       propertyPath: username
       value: 
       objectReference: {fileID: 29354770}
+    - target: {fileID: 1531555163669136, guid: 9441d8652a7ce4e49a80c3b41fe91427, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9441d8652a7ce4e49a80c3b41fe91427, type: 2}
   m_IsPrefabAsset: 0
